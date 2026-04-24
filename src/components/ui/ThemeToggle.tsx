@@ -4,8 +4,6 @@ import { ThemeContext } from "../../contexts/Theme.Context";
 const ThemeToggle = () => {
   const theme = useContext(ThemeContext)
   const handleClick = () => {
-    const html = document.documentElement
-    html.setAttribute("data-theme", theme.theme)
     theme.toggleTheme()
   }
   return (<button
