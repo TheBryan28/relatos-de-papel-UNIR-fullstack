@@ -1,23 +1,28 @@
-import { useState, type SubmitEvent } from 'react'
+import { useContext, useState, type SubmitEvent } from 'react'
 import Button from '../../../components/ui/Button'
 import Card from '../../../components/ui/Card'
 import InputText from '../../../components/ui/InputText'
+import { mockLogin } from '../../../services/mocks'
+import { AuthContext } from '../../../contexts/Auth.Context'
 
-const Signup = () => {
-  const [name, setName] = useState('')
+const Login = () => {
+  const Auth = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (password !== confirmPassword) {
-      alert('Las contrasenas no coinciden')
-      return
-    }
+    const loggedInUser = mockLogin(email, password)
 
-    console.log('USUARIO REGISTRADO', { name, email, password })
+    if (loggedInUser) {
+      // guardar el usuario en el contexto de autenticación o en el estado global
+      Auth?.setUser(loggedInUser)
+      alert(`Bienvenido, ${loggedInUser.name}!`)
+    } else {
+      setError('Credenciales incorrectas. Intenta de nuevo.')
+    }
   }
 
   const fieldClass =
@@ -31,33 +36,20 @@ const Signup = () => {
           <section className="flex items-center">
               <Card className="w-full bg-(--panel)/70 p-6 md:p-8 lg:sticky lg:top-6">
               <div className="space-y-3">
-                <p className="text-sm font-bold uppercase tracking-[0.28em] text-(--txt-secondary)">
-                  Registro
-                </p>
                 <h2 className="text-3xl font-bold tracking-[-0.04em] text-(--txt-color) sm:text-4xl">
-                  Crea tu cuenta.
+                  Login
                 </h2>
                 <p className="text-base leading-7 text-(--muted)">
-                  El formulario usa el mismo sistema monocromatico que las
-                  tarjetas y los botones para mantener una experiencia
-                  consistente.
+                  Ingresa tus credenciales para acceder a tu cuenta.
                 </p>
+                {error && (
+                  <p className="text-sm text-(--error-text)">
+                    {error}
+                  </p>
+                )}
               </div>
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-                <div>
-                  <InputText
-                    id="name"
-                    value={name}
-                    onChange={setName}
-                    placeholder="Juan Perez"
-                    className={fieldClass}
-                    label="Nombre"
-                  />
-                </div>
-
-
-
                 <div>
                   <InputText
                     id="email"
@@ -81,21 +73,9 @@ const Signup = () => {
                   />
                 </div>
 
-                <div>
-                  <InputText
-                    id="confirmPassword"
-                    value={confirmPassword}
-                    onChange={setConfirmPassword}
-                    placeholder="Repite la contrasena"
-                    type="password"
-                    className={fieldClass}
-                    label="Confirmar contrasena"
-                  />
-                </div>
-
                 <div className="grid gap-3 pt-2 sm:grid-cols-2">
                   <Button type="submit" variant="primary" className="w-full cursor-pointer">
-                    Registrarse
+                    Ingresar
                   </Button>
                 </div>
               </form>
@@ -106,4 +86,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Login
