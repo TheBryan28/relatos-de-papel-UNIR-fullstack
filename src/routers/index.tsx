@@ -1,5 +1,6 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AppLayout from '../components/layout/AppLayout';
+import LandingPage from '../modules/Home/pages/LandingPage';
 import Login from '../modules/Auth/pages/Login';
 import Signup from '../modules/Auth/pages/Signup';
 import Checkout from '../modules/Payment/pages/Checkout';
@@ -8,7 +9,7 @@ const MainRouter = () => {
   return (
     <Routes>
       <Route element={<AppLayout />}>
-        <Route index element={<Navigate to="/auth/login" replace />} />
+        <Route index element={<LandingPage />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Signup />} />
         <Route path="/checkout" element={<Checkout />} />

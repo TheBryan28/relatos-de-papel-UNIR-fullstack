@@ -19,7 +19,7 @@ const MainHeader = ({
 
   return (
     <header className="relative flex items-center justify-between gap-6 rounded-[14px] border border-(--line) bg-(--panel)/90 px-5 py-4 shadow-[0_18px_50px_rgba(var(--shadow-color),0.08)] backdrop-blur-sm sm:px-6">
-      <div className="flex items-center gap-3">
+      <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
         <div className="hidden h-11 w-11 items-center justify-center rounded-2xl bg-(--surface-strong) text-xl font-black text-(--txt-color) sm:flex">
           RP
         </div>
@@ -31,7 +31,7 @@ const MainHeader = ({
             Pago seguro
           </p>
         </div>
-      </div>
+      </Link>
 
       {/* Desktop nav */}
       <nav className="hidden items-center gap-7 md:flex" aria-label="Navegación principal">

@@ -29,7 +29,9 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
       >
         <div className="h-full overflow-y-auto bg-(--panel) px-3 py-4">
           <div className="mb-6 px-2">
-            <p className="text-lg font-black text-(--txt-color)">{BrandName.toLocaleUpperCase()}</p>
+            <Link to="/" onClick={handleClose} className="text-lg font-black text-(--txt-color)">
+              {BrandName.toLocaleUpperCase()}
+            </Link>
           </div>
 
           <ul className="space-y-2 font-medium">
