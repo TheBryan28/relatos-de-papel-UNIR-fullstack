@@ -1,4 +1,4 @@
-import { useState, type SubmitEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
 import Button from '../../../components/ui/Button';
 import Card from '../../../components/ui/Card';
 import InputText from '../../../components/ui/InputText';
@@ -33,7 +33,7 @@ const Checkout = () => {
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
 
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
@@ -53,7 +53,7 @@ const Checkout = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-8">
+          <form className="mt-8 space-y-8">
             <section className="space-y-5">
               <div>
                 <p className={helperClass}>Datos de envío</p>
@@ -205,7 +205,7 @@ const Checkout = () => {
                 Volver al carrito
               </Button>
 
-              <Button type="submit" variant="primary" className="w-full sm:w-auto">
+              <Button onClick={handleSubmit} variant="primary" className="w-full sm:w-auto">
                 Confirmar pago
               </Button>
             </div>

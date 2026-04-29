@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { BrandName } from '../../helpers';
 import type { MenuItem } from '../../types/MenuItem.interface';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import HeaderButton from './HeaderButton';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -13,23 +12,20 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-const Sidebar = ({ menuItems = [], open: controlledOpen, onClose }: SidebarProps) => {
+const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
   const navigate = useNavigate();
-  const [internalOpen, setInternalOpen] = useState(false);
-
-  const open = controlledOpen ?? internalOpen;
 
   const handleClose = () => {
     if (onClose) onClose();
-    else setInternalOpen(false);
   };
 
   return (
     <>
       <aside
         id="sidebar"
-        className={`fixed top-0 left-0 z-40 h-screen w-64 transform transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 z-40 h-screen w-64 transform transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : 'pointer-events-none -translate-x-full'}`}
         aria-hidden={!open}
+        {...(!open ? { inert: false } : {})}
       >
         <div className="h-full overflow-y-auto bg-(--panel) px-3 py-4">
           <div className="mb-6 px-2">
@@ -61,7 +57,7 @@ const Sidebar = ({ menuItems = [], open: controlledOpen, onClose }: SidebarProps
             )}
           </ul>
 
-          <div className="items-center gap-3">
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/checkout')}>
               <span className="text-lg">
@@ -80,7 +76,7 @@ const Sidebar = ({ menuItems = [], open: controlledOpen, onClose }: SidebarProps
       {/* Overlay shown only on mobile when sidebar open */}
       {!open ? null : (
         <div
-          className="fixed inset-0 z-30 bg-black/30 sm:hidden"
+          className="fixed inset-0 z-30 bg-black/30 md:hidden"
           aria-hidden
           onClick={handleClose}
         />
