@@ -1,18 +1,17 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../contexts/Theme.Context";
+import { useContext } from 'react';
+import { ThemeContext } from '../../contexts/Theme.Context';
+import HeaderButton from './HeaderButton';
 
 const ThemeToggle = () => {
-  const theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext);
   const handleClick = () => {
-    theme.toggleTheme()
-  }
-  return (<button
-      onClick={handleClick}
-      className="rounded-full border border-(--input-border) bg-(--input-bg) p-2 text-(--txt-color) transition hover:bg-(--panel)"
-    >
-      {theme.theme === "light" ? "🌞" : "🌜"}
-    </button>
-  )
-}
+    theme.toggleTheme();
+  };
+  return (
+    <HeaderButton onClick={handleClick} ariaLabel="Cambiar tema">
+      <span className="text-lg">{theme.theme === 'light' ? '🌞' : '🌜'}</span>
+    </HeaderButton>
+  );
+};
 
-export default ThemeToggle
+export default ThemeToggle;
