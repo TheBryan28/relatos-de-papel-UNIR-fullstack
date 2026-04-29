@@ -1,14 +1,14 @@
-import type { FC } from "react"
+import type { FC } from 'react';
 
 interface InputTextProps {
-  id: string
-  value: string
-  onChange: (value: string) => void
-  required?: boolean
-  placeholder?: string
-  type?: string
-  className?: string
-  label?: string
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  placeholder?: string;
+  type?: string;
+  className?: string;
+  label?: string;
 }
 
 const InputText: FC<InputTextProps> = ({
@@ -21,25 +21,27 @@ const InputText: FC<InputTextProps> = ({
   className = '',
   label,
 }) => {
-
   return (
     <div className="flex flex-col">
       {label && (
-        <label htmlFor={id} className="text-sm font-bold uppercase tracking-[0.16em] text-(--txt-secondary)">
+        <label
+          htmlFor={id}
+          className="text-sm font-bold tracking-[0.16em] text-(--txt-secondary) uppercase"
+        >
           {label}
         </label>
       )}
-    <input
-      type={type}
-      id={id}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      required={required}
-      className={`mt-2 w-full rounded-2xl border border-(--input-border) bg-(--input-bg) px-4 py-3 text-[15px] text-(--txt-color) outline-none transition placeholder:text-(--placeholder) focus:border-(--btn-color) focus:bg-(--panel) ${className}`}
-    />
+      <input
+        type={type}
+        id={id}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        placeholder={placeholder}
+        required={required}
+        className={`mt-2 w-full rounded-2xl border border-(--input-border) bg-(--input-bg) px-4 py-3 text-[15px] text-(--txt-color) transition outline-none placeholder:text-(--placeholder) focus:border-(--btn-color) focus:bg-(--panel) ${className}`}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default InputText
+export default InputText;

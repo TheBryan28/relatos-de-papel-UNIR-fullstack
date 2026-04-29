@@ -1,7 +1,7 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Card = ({ className = '', children, ...props }: CardProps) => {
@@ -12,7 +12,7 @@ const Card = ({ className = '', children, ...props }: CardProps) => {
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

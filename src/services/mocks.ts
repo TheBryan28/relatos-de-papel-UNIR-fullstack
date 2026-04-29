@@ -42,10 +42,10 @@ const users = [
     gender: 'female',
     createdAt: '2023-04-18T00:00:00Z',
     updatedAt: '2023-04-18T00:00:00Z',
-  }
-]
+  },
+];
 
 export const mockLogin = (email: string, password: string) => {
-  const user = users.find(u => u.email === email && u.password === password)
-  return user
-}
+  const user = users.find(u => u.email === email && u.password === password);
+  return user;
+};
