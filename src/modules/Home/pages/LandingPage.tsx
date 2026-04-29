@@ -99,7 +99,7 @@ const LandingPage = () => {
                 Agregar al Carrito
               </button>
               <Link 
-              to ={`/book/1`}
+              to ={`/book/${book.id}`}
               className="mt-2  w-full rounded-xl bg-(--btn-color) py-2 text-center text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
                 Ver Libro
               </Link>
