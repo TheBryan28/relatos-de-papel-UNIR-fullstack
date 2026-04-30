@@ -1,0 +1,48 @@
+.profile-container {
+  padding: 20px;
+}
+
+.profile-info {
+  display: flex;
+  justify-content: space-between;
+  background: #eee;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.address-box {
+  background: #ccc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.library {
+  margin-top: 30px;
+}
+
+.books-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.book-card {
+  width: 150px;
+}
+
+.book-card img {
+  width: 100%;
+}
+
+.orders {
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
