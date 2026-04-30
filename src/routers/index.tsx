@@ -5,6 +5,7 @@ import Login from '../modules/Auth/pages/Login';
 import Signup from '../modules/Auth/pages/Signup';
 import Checkout from '../modules/Payment/pages/Checkout';
 import BookDetail from '../modules/Book/pages/BookDetail';
+import Cart from '../modules/Cart/Pages/Cart';
 
 const MainRouter = () => {
   return (
@@ -15,6 +16,7 @@ const MainRouter = () => {
         <Route path="/auth/register" element={<Signup />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/Cart" element={<Cart />} />
       </Route>
     </Routes>
   );
