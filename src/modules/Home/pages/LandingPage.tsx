@@ -1,37 +1,10 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiBook, FiShield, FiTruck } from 'react-icons/fi';
+import { books } from '../../../fakedata/books-data';
 
 const LandingPage = () => {
-  const featuredBooks = [
-    {
-      id: 1,
-      title: 'El Laberinto de los Sueños',
-      author: 'Gabriel García Márquez',
-      price: '$25.99',
-      image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      id: 2,
-      title: 'Cien Años de Soledad',
-      author: 'Gabriel García Márquez',
-      price: '$19.99',
-      image: 'https://images.unsplash.com/photo-1543004218-ee141104638e?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      id: 3,
-      title: 'Don Quijote de la Mancha',
-      author: 'Miguel de Cervantes',
-      price: '$15.50',
-      image: 'https://images.unsplash.com/photo-1512820790803-73cad7a2593f?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      id: 4,
-      title: 'Rayuela',
-      author: 'Julio Cortázar',
-      price: '$22.00',
-      image: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=800&auto=format&fit=crop',
-    },
-  ];
+  
+  const featuredBooks =  books.slice(0, 4)
 
   return (
     <div className="flex flex-col gap-16 py-8">
@@ -110,21 +83,26 @@ const LandingPage = () => {
             <div key={book.id} className="group flex flex-col gap-4 rounded-2xl border border-(--line) bg-(--panel) p-4 transition-all hover:shadow-xl">
               <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-(--surface-strong)">
                 <img 
-                  src={book.image} 
-                  alt={book.title} 
+                  src={book.imagen} 
+                  alt={book.titulo} 
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute top-2 right-2 rounded-lg bg-(--panel)/80 px-2 py-1 text-sm font-bold text-(--txt-color) backdrop-blur-sm">
-                  {book.price}
+                  {book.precio}
                 </div>
               </div>
               <div className="flex flex-col">
-                <h4 className="font-bold text-(--txt-color) line-clamp-1">{book.title}</h4>
-                <p className="text-sm text-(--txt-secondary)">{book.author}</p>
+                <h4 className="font-bold text-(--txt-color) w-full line-clamp-1">{book.titulo}</h4>
+                <p className="text-sm text-(--txt-secondary)">{book.autor}</p>
               </div>
-              <button className="mt-2 w-full rounded-xl bg-(--btn-color) py-2 text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
-                Añadir al carrito
+              <button className="mt-2  w-full rounded-xl bg-(--btn-color) py-2 text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
+                Agregar al Carrito
               </button>
+              <Link 
+              to ={`/book/${book.id}`}
+              className="mt-2  w-full rounded-xl bg-(--btn-color) py-2 text-center text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
+                Ver Libro
+              </Link>
             </div>
           ))}
         </div>
