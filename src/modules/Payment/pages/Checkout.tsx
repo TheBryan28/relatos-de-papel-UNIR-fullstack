@@ -3,6 +3,7 @@ import Button from '../../../components/ui/Button';
 import Card from '../../../components/ui/Card';
 import InputText from '../../../components/ui/InputText';
 import PaymentResume from '../components/PaymentResume';
+import { useNavigate } from 'react-router-dom';
 
 type PaymentMethod = 'card' | 'wallet';
 
@@ -24,6 +25,7 @@ const orderItems = [
 ];
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card');
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
@@ -34,7 +36,13 @@ const Checkout = () => {
   const [cvc, setCvc] = useState('');
 
   const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      navigate('/payment/confirmed');
+    } catch (error) {
+      console.error('Error al procesar el pago:', error);
+      navigate('/payment/error');
+    }
   };
 
   const sectionTitleClass = 'text-2xl font-black tracking-[-0.04em] text-(--txt-color) sm:text-3xl';

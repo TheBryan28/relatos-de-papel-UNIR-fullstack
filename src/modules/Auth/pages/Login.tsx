@@ -4,6 +4,7 @@ import InputText from '../../../components/ui/InputText';
 import MainCard from '../../../components/ui/MainCard';
 import { mockLogin } from '../../../services/mocks';
 import { AuthContext } from '../../../contexts/Auth.Context';
+import { PiWarningCircleLight } from 'react-icons/pi';
 
 const Login = () => {
   const Auth = useContext(AuthContext);
@@ -38,6 +39,14 @@ const Login = () => {
           Ingresa tus credenciales para acceder a tu cuenta.
         </p>
         {error && <p className="text-sm text-(--error-text)">{error}</p>}
+        <code className="block rounded bg-(--btn-hover) p-4 text-sm text-(--txt-secondary)">
+          <PiWarningCircleLight className="inline h-4 w-4" style={{ color: 'var(--error-text)' }} />{' '}
+          Credenciales de prueba:
+          <br />
+          Email: juan@papel.com
+          <br />
+          Contraseña: 123456
+        </code>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
