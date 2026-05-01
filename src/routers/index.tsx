@@ -9,6 +9,7 @@ import PaymentConfirmed from '../modules/Payment/pages/PaymentConfirmed';
 import PaymentError from '../modules/Payment/pages/PaymentError';
 import BookDetail from '../modules/Book/pages/BookDetail';
 import NotFound from '../modules/Home/pages/NotFound';
+import Cart from '../modules/Cart/Pages/Cart';
 
 const MainRouter = () => {
   return (
@@ -18,7 +19,7 @@ const MainRouter = () => {
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Signup />} />
         <Route path="/book/:id" element={<BookDetail />} />
-
+        <Route path="/Cart" element={<Cart />} />
         <Route element={<ProtectedLayout />}>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment/confirmed" element={<PaymentConfirmed />} />

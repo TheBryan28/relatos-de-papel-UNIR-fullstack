@@ -61,7 +61,7 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/checkout')}>
+            <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/Cart')}>
               <span className="text-lg">
                 <AiOutlineShoppingCart />
               </span>
