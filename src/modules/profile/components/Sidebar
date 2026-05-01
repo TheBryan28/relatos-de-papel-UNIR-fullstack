@@ -1,0 +1,28 @@
+ const Sidebar = () => {
+  return (
+    <aside className="flex flex-col gap-4 rounded-[14px] border border-(--line) bg-(--panel) p-4">
+      <div className="flex items-center gap-3">
+        <div className="h-12 w-12 rounded-full bg-(--bg-color)" />
+        <div>
+          <p className="font-bold text-(--txt-color)">Usuario</p>
+          <p className="text-sm text-(--txt-secondary)">Premium Member</p>
+        </div>
+      </div>
+
+      <nav className="mt-4 flex flex-col gap-2">
+        <button className="text-left p-2 rounded hover:bg-(--bg-color)">
+          Library
+        </button>
+        <button className="text-left p-2 rounded hover:bg-(--bg-color)">
+          Orders
+        </button>
+        <button className="text-left p-2 rounded hover:bg-(--bg-color)">
+          Addresses
+        </button>
+        <button className="text-left p-2 rounded bg-(--bg-color)">
+          Settings
+        </button>
+      </nav>
+    </aside>
+  );
+};
