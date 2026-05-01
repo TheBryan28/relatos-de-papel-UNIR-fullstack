@@ -1,7 +1,7 @@
 const OrdersTable = ({ orders }) => {
   return (
 
-<div>
+<div className="rounded-[14px] border border-(--line) bg-(--panel) p-5">
   <h2 className="text-xl font-bold mb-3">HISTORIAL DE PEDIDOS</h2>
 
   <table className="w-full text-sm border-collapse">
