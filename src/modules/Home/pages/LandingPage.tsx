@@ -8,7 +8,7 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col gap-16 py-8">
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-[2rem] bg-linear-to-br from-(--panel) to-(--surface-strong) p-8 md:p-16">
+      <section className="relative overflow-hidden rounded-4xl bg-linear-to-br from-(--panel) to-(--surface-strong) p-8 md:p-16">
         <div className="absolute top-0 right-0 -mt-20 -mr-20 h-64 w-64 rounded-full bg-(--btn-color) opacity-5 blur-3xl"></div>
 
         <div className="relative z-10 flex flex-col items-center gap-8 md:flex-row md:justify-between">
@@ -99,19 +99,19 @@ const LandingPage = () => {
               key={book.id}
               className="group flex flex-col gap-4 rounded-2xl border border-(--line) bg-(--panel) p-4 transition-all hover:shadow-xl"
             >
-              <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-(--surface-strong)">
+              <div className="relative aspect-3/4 overflow-hidden rounded-xl bg-(--surface-strong)">
                 <img
                   src={book.imagen}
-                  alt={book.titulo}
+                  alt={book.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute top-2 right-2 rounded-lg bg-(--panel)/80 px-2 py-1 text-sm font-bold text-(--txt-color) backdrop-blur-sm">
-                  {book.precio}
+                  {book.price}
                 </div>
               </div>
               <div className="flex flex-col">
-                <h4 className="line-clamp-1 w-full font-bold text-(--txt-color)">{book.titulo}</h4>
-                <p className="text-sm text-(--txt-secondary)">{book.autor}</p>
+                <h4 className="line-clamp-1 w-full font-bold text-(--txt-color)">{book.title}</h4>
+                <p className="text-sm text-(--txt-secondary)">{book.author}</p>
               </div>
               <button className="mt-2 w-full rounded-xl bg-(--btn-color) py-2 text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
                 Agregar al Carrito
