@@ -44,7 +44,7 @@ const Cart = () => {
               cart.map((item) => (
                   <Card key={item.id} className="bg-(--panel)/70 p-4 flex items-center justify-between border-(--line) hover:border-(--btn-color)/30 transition-colors">
                     <div className="space-y-1">
-                      <h3 className="font-semibold text-lg">{item.name}</h3>
+                      <h3 className="font-semibold text-lg">{item.title}</h3>
                       <p className="text-sm text-(--muted)">Precio: ${item.price}</p>
                     </div>
 
