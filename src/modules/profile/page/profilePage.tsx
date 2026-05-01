@@ -4,7 +4,7 @@ import React from "react";
 // 👇 ajusta rutas según tu proyecto
 import { users } from '../../../services/mocks';
 import {books} from '../../../fakedata/books-data';
-/* import {orders} from "@/mocks/orders"; */
+import {orders} from '../../../services/mocksOrders';
 
 import "./ProfilePage.css";
 
