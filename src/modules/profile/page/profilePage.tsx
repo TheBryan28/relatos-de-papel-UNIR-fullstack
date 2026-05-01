@@ -1,11 +1,11 @@
-import { users } from '../../../services/mocks';
-import { books } from '../../../fakedata/books-data';
-import { orders } from '../../../services/mocksOrders';
+import { users } from '../../../services/mocks.ts';
+import { books } from '../../../fakedata/books-data.ts';
+import { orders } from '../../../services/mocksOrders.ts';
 
 import Sidebar from '../components/Sidebar.tsx';
-import ProfileInfo from '../components/ProfileInfo';
-import LibrarySection from '../components/LibrarySection';
-import OrdersTable from '../components/OrdersTable';
+import ProfileInfo from '../components/ProfileInfo.tsx';
+import LibrarySection from '../components/LibrarySection.tsx';
+import OrdersTable from '../components/OrdersTable.tsx';
 
 
 const ProfilePage = () => {
