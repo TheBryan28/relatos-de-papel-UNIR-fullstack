@@ -1,4 +1,5 @@
  const Sidebar = ({ user }) => {
+  console.log(user);
   return (
     <aside className="flex flex-col gap-4 rounded-[14px] border border-(--line) bg-(--panel) p-4">
       <div className="flex items-center gap-3">

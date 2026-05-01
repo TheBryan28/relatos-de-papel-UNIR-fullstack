@@ -1,27 +1,30 @@
 import { users } from '../../../services/mocks';
+import { books } from '../../../fakedata/books-data';
+import { orders } from '../../../services/mocksOrders';
+
 import Sidebar from '../components/Sidebar.tsx';
 import ProfileInfo from '../components/ProfileInfo';
 import LibrarySection from '../components/LibrarySection';
 import OrdersTable from '../components/OrdersTable';
 
 
-const orders = [
-    {
-      id: '#RP001',
-      date: '2024-01-10',
-      status: 'Entregado',
-      total: '45€',
-      accion: 'VER DETALLES'
-    },
-  ];
+// const orders = [
+//     {
+//       id: '#RP001',
+//       date: '2024-01-10',
+//       status: 'Entregado',
+//       total: '45€',
+//       accion: 'VER DETALLES'
+//     },
+//   ];
 
-   const books = [
-    { id: 1, title: 'Libro 1', author: 'Autor 1' },
-    { id: 2, title: 'Libro 2', author: 'Autor 2' },
-    { id: 3, title: 'Libro 3', author: 'Autor 3' },
-  ];
+//    const books = [
+//     { id: 1, title: 'Libro 1', author: 'Autor 1' },
+//     { id: 2, title: 'Libro 2', author: 'Autor 2' },
+//     { id: 3, title: 'Libro 3', author: 'Autor 3' },
+//   ];
 
-  
+
 
 const ProfilePage = () => {
   const user = users[0];
