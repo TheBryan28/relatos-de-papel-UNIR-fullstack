@@ -1,16 +1,18 @@
 import React from "react";
 
+
 // 👇 ajusta rutas según tu proyecto
-import { users } from "@/services/mocks";
-import books from '../../../fakedata/books-data';
-import orders from "@/mocks/orders";
+import { users } from '../../../services/mocks';
+import {books} from '../../../fakedata/books-data';
+/* import {orders} from "@/mocks/orders"; */
 
 import "./ProfilePage.css";
 
-const ProfilePage = () => {
-  // 👇 tomamos un usuario mock
-  const user = users[0];
 
+const ProfilePage = () => {
+  //  tomamos un usuario mock
+  const user = users[0];
+    
   return (
     <div className="profile-container">
       <h1>INFORMACIÓN DE PERFIL</h1>
@@ -71,5 +73,6 @@ const ProfilePage = () => {
     </div>
   );
 };
+
 
 export default ProfilePage;
