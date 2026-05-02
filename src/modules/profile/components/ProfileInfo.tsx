@@ -1,4 +1,11 @@
-    const ProfileInfo = ({ user }) => {
+ import type { User } from '../../../types/User.interface';
+
+
+ type Props = {
+  user: User;
+};
+
+const ProfileInfo = ({ user }: Props) => {
     return (
 
             <div className="grid grid-cols-2 gap-6 rounded-[14px] border border-(--line) bg-(--panel) p-6">

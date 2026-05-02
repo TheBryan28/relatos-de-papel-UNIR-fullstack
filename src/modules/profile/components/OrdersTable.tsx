@@ -1,4 +1,9 @@
-const OrdersTable = ({ orders }) => {
+import type { Order } from '../../../types/Order.interface';
+type Props = {
+      orders: Order[];
+    };
+
+const OrdersTable = ({ orders }:Props) => {
   return (
 
 <div className="rounded-[14px] border border-(--line) bg-(--panel) p-5">
@@ -31,7 +36,7 @@ const OrdersTable = ({ orders }) => {
             </span>
           </td>
 
-          <td className="px-2 font-medium">{order.total}</td>
+          <td className="px-2 font-medium">{order.total} {order.currency}</td>
 
           <td className="px-2 text-center">
             <button className="text-xs font-medium text-(--txt-color) hover:underline">

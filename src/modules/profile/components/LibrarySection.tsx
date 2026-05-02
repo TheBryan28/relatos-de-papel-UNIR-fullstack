@@ -1,4 +1,11 @@
-    const lybrarySection = ({ books }) => {
+     import type { Book } from '../../../types/Book.interface';
+    
+    
+     type Props = {
+      books: Book[];
+    };
+    
+    const lybrarySection = ({ books }: Props) => {
     return (
     <div>
   <h2 className="text-xl font-bold mb-3">BIBLIOTECA DIGITAL</h2>
@@ -12,14 +19,14 @@
 
         <img
           src={book.imagen}
-          alt={book.titulo}
+          alt={book.title}
           className="h-40 w-full object-cover rounded mb-3"
         />
 
-        <p className="font-semibold">{book.titulo}</p>
+        <p className="font-semibold">{book.title}</p>
 
         <p className="text-sm text-(--txt-secondary)">
-          {book.autor}
+          {book.author}
         </p>
 
         <button className="mt-3 w-full rounded bg-black text-white py-2">

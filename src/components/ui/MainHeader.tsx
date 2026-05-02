@@ -50,7 +50,7 @@ const MainHeader = ({
       <div className="flex items-center gap-3 text-(--txt-color)">
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/checkout')}>
+          <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/Cart')}>
             <span className="text-lg">
               <AiOutlineShoppingCart />
             </span>

@@ -1,5 +1,5 @@
 import { users } from '../../../services/mocks.ts';
-import { books } from '../../../fakedata/books-data.ts';
+import { books } from '../../../services/books-data.ts';
 import { orders } from '../../../services/mocksOrders.ts';
 
 import Sidebar from '../components/Sidebar.tsx';
