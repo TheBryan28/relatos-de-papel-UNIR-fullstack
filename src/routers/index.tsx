@@ -8,6 +8,7 @@ import Checkout from '../modules/Payment/pages/Checkout';
 import PaymentConfirmed from '../modules/Payment/pages/PaymentConfirmed';
 import PaymentError from '../modules/Payment/pages/PaymentError';
 import BookDetail from '../modules/Book/pages/BookDetail';
+import ProfilePage from '../modules/profile/page/ProfilePage';
 import NotFound from '../modules/Home/pages/NotFound';
 import Cart from '../modules/Cart/Pages/Cart';
 
@@ -19,6 +20,7 @@ const MainRouter = () => {
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Signup />} />
         <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/Cart" element={<Cart />} />
         <Route element={<ProtectedLayout />}>
           <Route path="/checkout" element={<Checkout />} />
