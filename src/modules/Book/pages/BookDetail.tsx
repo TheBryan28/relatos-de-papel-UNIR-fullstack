@@ -1,23 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { getBookById } from '../../../services/books-data';
 import { BookNotFound } from '../components/BookNotFound';
-//import { useContext } from "react";
-//import { CartContext } from "./CartContext";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function BookDetail() {
   const { id } = useParams();
   const bookId: number = Number(id);
   const book = getBookById(bookId);
-  //const { book } = useBook(Number(id));
-  //const { addToCart, cart } = useContext(CartContext);
-
-  //if (!book) {
-  //return <p>Libro { id } no encontrado</p>;
-  //}
-
-  //const handleAdd = () => {
-  //addToCart(book);
-  //};
+  const navigate = useNavigate();
   console.log('BookDetail - book:', book);
   return (
     <>
@@ -49,7 +40,8 @@ export default function BookDetail() {
               <p className="leading-relaxed text-gray-600">{book?.description}</p>
 
               <div className="flex flex-col gap-3">
-                <button className="rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800">
+                <button 
+                className="rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800" onClick={() => navigate('/Cart')}>
                   ADICIONAR AL CARRITO
                 </button>
 
