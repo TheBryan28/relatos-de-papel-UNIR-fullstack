@@ -1,5 +1,5 @@
-import { AuthProvider } from './contexts/Auth.Context';
-import { ThemeProvider } from './contexts/Theme.Context';
+import { AuthProvider } from './state/contexts/Auth.Context';
+import { ThemeProvider } from './state/contexts/Theme.Context';
 import { BrowserRouter } from 'react-router-dom';
 import MainRouter from './routers';
 

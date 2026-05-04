@@ -1,0 +1,18 @@
+- Always use TypeScript
+- Prefer functional programming patterns
+- Follow clean architecture principles
+- Write testable code
+- Use index.css for global styles and theme color variables
+- Use tailwind for component-specific styles
+- Reuse components and styles whenever possible (look inside the components folder for existing global components)
+- Use descriptive names for variables, functions, and components
+- Use spanish for visible text and english for code (variables, functions, components)
+- Use comments to explain complex logic or decisions, but avoid over-commenting
+- Create reusable components for common UI patterns
+- Use hooks for state management and side effects in functional components
+- Follow the DRY (Don't Repeat Yourself) principle to avoid code duplication
+- Use TypeScript interfaces to define component props (when the interface is used across multiple components Create the interfaces in a separate file inside types folder under src, I think there is no need to create a separate file for interfaces for components but for entities)
+- Use Mobile first approach for responsive design
+- Use semantic HTML elements for better accessibility and SEO
+- Use ReactIcons library for icons instead of custom SVGs or images
+- Use context for global state management when necessary, but avoid overusing it

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../../contexts/Auth.Context';
+import { AuthContext } from '../../state/contexts/Auth.Context';
 
 const ProtectedLayout: React.FC = () => {
   const authContext = useContext(AuthContext);

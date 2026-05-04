@@ -1,50 +1,45 @@
 import { Link, useNavigate } from 'react-router-dom';
-import type { MouseEventHandler } from 'react';
+import { useState, type MouseEventHandler } from 'react';
 import HeaderButton from './HeaderButton';
 import ThemeToggle from './ThemeToggle';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { FaUser } from 'react-icons/fa6';
 import { FiMenu } from 'react-icons/fi';
 import { BrandName } from '../../helpers';
-import type { MenuItem } from '../../types/MenuItem.interface';
+import { useGlobalStore } from '../../state/zustand/global.store';
+import SearchInput from './SearchInput';
 
-const MainHeader = ({
-  menuItems,
-  onToggleSidebar,
-}: {
-  menuItems: MenuItem[];
-  onToggleSidebar?: MouseEventHandler;
-}) => {
+const MainHeader = ({ onToggleSidebar }: { onToggleSidebar?: MouseEventHandler }) => {
   const navigate = useNavigate();
+  const query = useGlobalStore(state => state.searchTerm);
+  const setQuery = useGlobalStore(state => state.setSearchTerm);
+  const [localSearch, setLocalSearch] = useState(query);
+
+  const handleSearch = () => {
+    setQuery(localSearch);
+    navigate('/catalog');
+  };
 
   return (
-    <header className="relative flex items-center justify-between gap-6 rounded-[14px] border border-(--line) bg-(--panel)/90 px-5 py-4 shadow-[0_18px_50px_rgba(var(--shadow-color),0.08)] backdrop-blur-sm sm:px-6">
+    <header className="sticky top-4 z-10 flex items-center justify-between gap-6 rounded-[14px] border border-(--line) bg-(--panel)/90 px-5 py-4 shadow-[0_18px_50px_rgba(var(--shadow-color),0.08)] backdrop-blur-sm sm:px-6">
       <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-        <div className="hidden h-11 w-11 items-center justify-center rounded-2xl bg-(--surface-strong) text-xl font-black text-(--txt-color) sm:flex">
+        <div className="hidden h-11 w-11 items-center justify-center rounded-2xl bg-(--surface-strong) text-xl font-black text-(--txt-color) md:flex">
           RP
         </div>
-        <div>
-          <p className="text-[1.05rem] font-black tracking-[-0.04em] text-(--txt-color) sm:text-[1.15rem]">
+        <div className="hidden md:block">
+          <p className="text-[1.05rem] font-black tracking-[-0.04em] text-(--txt-color)">
             {BrandName.toLocaleUpperCase()}
           </p>
-          <p className="hidden text-xs tracking-[0.24em] text-(--muted) uppercase sm:block">
-            Pago seguro
-          </p>
+          <p className="text-xs text-(--muted)">Amplia tu mente, amplia tus horizontes</p>
         </div>
       </Link>
 
-      {/* Desktop nav */}
-      <nav className="hidden items-center gap-7 md:flex" aria-label="Navegación principal">
-        {menuItems.map(link => (
-          <Link
-            key={link.label}
-            to={link.to}
-            className="text-[0.95rem] font-medium text-(--txt-secondary) transition hover:text-(--txt-color)"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
+      <SearchInput
+        searchTerm={localSearch}
+        setSearchTerm={setLocalSearch}
+        goBack
+        handleSearch={handleSearch}
+      />
 
       {/* Right side: hidden on medium, burger shown on mobile */}
       <div className="flex items-center gap-3 text-(--txt-color)">

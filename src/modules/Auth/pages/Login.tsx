@@ -3,7 +3,7 @@ import Button from '../../../components/ui/Button';
 import InputText from '../../../components/ui/InputText';
 import MainCard from '../../../components/ui/MainCard';
 import { mockLogin } from '../../../services/mocks';
-import { AuthContext } from '../../../contexts/Auth.Context';
+import { AuthContext } from '../../../state/contexts/Auth.Context';
 import { PiWarningCircleLight } from 'react-icons/pi';
 
 const Login = () => {

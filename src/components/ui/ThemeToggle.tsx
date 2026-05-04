@@ -1,6 +1,8 @@
 import { useContext } from 'react';
-import { ThemeContext } from '../../contexts/Theme.Context';
+import { ThemeContext } from '../../state/contexts/Theme.Context';
 import HeaderButton from './HeaderButton';
+import { FaRegLightbulb } from 'react-icons/fa6';
+import { FaLightbulb } from 'react-icons/fa6';
 
 const ThemeToggle = () => {
   const theme = useContext(ThemeContext);
@@ -8,8 +10,10 @@ const ThemeToggle = () => {
     theme.toggleTheme();
   };
   return (
-    <HeaderButton onClick={handleClick} ariaLabel="Cambiar tema">
-      <span className="text-lg">{theme.theme === 'light' ? '🌞' : '🌜'}</span>
+    <HeaderButton onClick={handleClick} ariaLabel="change theme">
+      <span className="text-lg">
+        {theme.theme === 'light' ? <FaRegLightbulb /> : <FaLightbulb />}
+      </span>
     </HeaderButton>
   );
 };
