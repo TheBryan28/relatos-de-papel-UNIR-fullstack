@@ -4,6 +4,7 @@ interface InputTextProps {
   id: string;
   value: string;
   onChange: (value: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   required?: boolean;
   placeholder?: string;
   type?: string;
@@ -15,6 +16,7 @@ const InputText: FC<InputTextProps> = ({
   id,
   value,
   onChange,
+  onKeyDown,
   required = false,
   placeholder = '',
   type = 'text',
@@ -36,9 +38,10 @@ const InputText: FC<InputTextProps> = ({
         id={id}
         value={value}
         onChange={e => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         required={required}
-        className={`mt-2 w-full rounded-2xl border border-(--input-border) bg-(--input-bg) px-4 py-3 text-[15px] text-(--txt-color) transition outline-none placeholder:text-(--placeholder) focus:border-(--btn-color) focus:bg-(--panel) ${className}`}
+        className={`mt-2 w-full rounded-2xl border border-(--input-border) bg-(--input-bg) px-3 py-2 text-[15px] text-(--txt-color) transition outline-none placeholder:text-(--placeholder) focus:border-(--btn-color) focus:bg-(--panel) ${className}`}
       />
     </div>
   );

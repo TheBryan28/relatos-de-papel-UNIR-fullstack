@@ -4,6 +4,7 @@ import { books } from '../../../services/books-data';
 
 const LandingPage = () => {
   const featuredBooks = books.slice(0, 4);
+  const formatPrice = (value: number) => value.toLocaleString('es-CO');
 
   return (
     <div className="flex flex-col gap-16 py-8">
@@ -30,9 +31,12 @@ const LandingPage = () => {
               >
                 Comenzar a leer <FiArrowRight />
               </Link>
-              <button className="rounded-xl border border-(--line) bg-(--panel) px-8 py-4 font-bold text-(--txt-color) transition-all hover:bg-(--surface-strong)">
+              <Link
+                to="/catalog"
+                className="rounded-xl border border-(--line) bg-(--panel) px-8 py-4 font-bold text-(--txt-color) transition-all hover:bg-(--surface-strong)"
+              >
                 Ver catálogo
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -101,17 +105,19 @@ const LandingPage = () => {
             >
               <div className="relative aspect-3/4 overflow-hidden rounded-xl bg-(--surface-strong)">
                 <img
-                  src={book.imagen}
+                  src={book.imagesUrls[0]}
                   alt={book.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute top-2 right-2 rounded-lg bg-(--panel)/80 px-2 py-1 text-sm font-bold text-(--txt-color) backdrop-blur-sm">
-                  {book.price}
+                  ${formatPrice(book.finalPrice)}
                 </div>
               </div>
               <div className="flex flex-col">
                 <h4 className="line-clamp-1 w-full font-bold text-(--txt-color)">{book.title}</h4>
-                <p className="text-sm text-(--txt-secondary)">{book.author}</p>
+                <p className="text-sm text-(--txt-secondary)">
+                  {book.authors[0] ?? 'Autor desconocido'}
+                </p>
               </div>
               <button className="mt-2 w-full rounded-xl bg-(--btn-color) py-2 text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
                 Agregar al Carrito

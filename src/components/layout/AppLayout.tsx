@@ -8,10 +8,10 @@ const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigationLinks = [
-    { label: 'Catálogo', to: '#' },
-    { label: 'Colecciones', to: '#' },
-    { label: 'Archivos', to: '#' },
-    { label: 'Acerca de', to: '#' },
+    { label: 'Catálogo', to: '/catalog' },
+    { label: 'Colecciones', to: '/collections' },
+    { label: 'Archivos', to: '/files' },
+    { label: 'Acerca de', to: '/about' },
   ];
 
   return (
@@ -27,7 +27,7 @@ const AppLayout = () => {
       />
 
       <div className="relative mx-auto flex min-h-[calc(100vh-1rem)] max-w-7xl flex-col gap-6">
-        <MainHeader menuItems={navigationLinks} onToggleSidebar={() => setSidebarOpen(s => !s)} />
+        <MainHeader onToggleSidebar={() => setSidebarOpen(s => !s)} />
 
         <div className="flex-1">
           <Outlet />
