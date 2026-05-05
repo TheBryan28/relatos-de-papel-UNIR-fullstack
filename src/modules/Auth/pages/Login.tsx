@@ -5,8 +5,9 @@ import MainCard from '../../../components/ui/MainCard';
 import { mockLogin } from '../../../services/mocks';
 import { AuthContext } from '../../../state/contexts/Auth.Context';
 import { PiWarningCircleLight } from 'react-icons/pi';
-
+import { useNavigate } from 'react-router-dom'; //C
 const Login = () => {
+  const navigate = useNavigate();//C
   const Auth = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +21,7 @@ const Login = () => {
     if (loggedInUser) {
       // guardar el usuario en el contexto de autenticación o en el estado global
       Auth?.setUser(loggedInUser);
+        navigate('/profile'); //
       alert(`Bienvenido, ${loggedInUser.name}!`);
     } else {
       setError('Credenciales incorrectas. Intenta de nuevo.');
