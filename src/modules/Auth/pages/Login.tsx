@@ -77,7 +77,25 @@ const Login = () => {
           <Button type="submit" variant="primary" className="w-full cursor-pointer">
             Ingresar
           </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            className="w-full cursor-pointer"
+            onClick={() => navigate('/auth/register')}
+          >
+            Crear cuenta
+          </Button>
         </div>
+        <p className="text-center text-sm text-(--muted)">
+          ¿No tienes una cuenta?{' '}
+          <button
+            type="button"
+            onClick={() => navigate('/auth/register')}
+            className="font-bold text-(--btn-color) hover:underline cursor-pointer"
+          >
+            Regístrate ahora
+          </button>
+        </p>
       </form>
     </MainCard>
   );

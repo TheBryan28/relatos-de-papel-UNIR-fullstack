@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import type { Book } from '../../../types/Book.interface';
+import { useCart } from '../../../state/contexts/Cart.Context';
 
 interface BookGridProps {
   books: Book[];
@@ -9,10 +10,19 @@ interface BookGridProps {
 
 const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const remainingCount = Math.max(totalCount - books.length, 0);
   const skeletonCount = isLoadingMore ? Math.min(4, remainingCount) : 0;
   const formatPrice = (value: number) => value.toLocaleString('es-CO');
+
+  const handleAddToCart = (book: Book) => {
+    addToCart({
+      id: book.id,
+      title: book.title,
+      price: book.finalPrice,
+    });
+  };
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -55,6 +65,7 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
 
           <button 
             disabled={book.stock === 0}
+            onClick={() => handleAddToCart(book)}
             className={`mt-auto w-full rounded-xl py-3 text-sm font-black transition-all cursor-pointer ${
               book.stock > 0 
                 ? 'bg-(--btn-color) text-(--btn-text) hover:bg-(--btn-hover) active:scale-95' 

@@ -2,8 +2,10 @@ import { useState, type SubmitEvent } from 'react';
 import Button from '../../../components/ui/Button';
 import InputText from '../../../components/ui/InputText';
 import MainCard from '../../../components/ui/MainCard';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -89,7 +91,25 @@ const Signup = () => {
           <Button type="submit" variant="primary" className="w-full cursor-pointer">
             Registrarse
           </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            className="w-full cursor-pointer"
+            onClick={() => navigate('/auth/login')}
+          >
+            Ya tengo cuenta
+          </Button>
         </div>
+        <p className="text-center text-sm text-(--muted)">
+          ¿Ya tienes una cuenta?{' '}
+          <button
+            type="button"
+            onClick={() => navigate('/auth/login')}
+            className="font-bold text-(--btn-color) hover:underline cursor-pointer"
+          >
+            Inicia sesión
+          </button>
+        </p>
       </form>
     </MainCard>
   );
