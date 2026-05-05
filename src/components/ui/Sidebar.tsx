@@ -4,7 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import HeaderButton from './HeaderButton';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { FaUser } from 'react-icons/fa6';
+import { useContext } from 'react';
+import { AuthContext } from '../../state/contexts/Auth.Context';
+import { FaUser, FaRightFromBracket } from 'react-icons/fa6';
 
 interface SidebarProps {
   menuItems?: MenuItem[];
@@ -14,9 +16,25 @@ interface SidebarProps {
 
 const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const handleClose = () => {
     if (onClose) onClose();
+  };
+
+  const handleProfileClick = () => {
+    handleClose();
+    if (auth?.isAuthenticated) {
+      navigate('/profile');
+    } else {
+      navigate('/auth/login');
+    }
+  };
+
+  const handleLogout = () => {
+    handleClose();
+    auth?.logout();
+    navigate('/');
   };
 
   return (
@@ -49,6 +67,7 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
                 <li key={it.label}>
                   <Link
                     to={it.to ?? '#'}
+                    onClick={handleClose}
                     className="flex items-center gap-3 rounded-lg p-2 text-(--txt-color) hover:bg-(--surface-strong)"
                   >
                     {it.icon && <span className="text-lg">{it.icon}</span>}
@@ -59,18 +78,41 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
             )}
           </ul>
 
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/Cart')}>
-              <span className="text-lg">
-                <AiOutlineShoppingCart />
+          <div className="mt-8 flex flex-col gap-4 border-t border-(--line) pt-6">
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <HeaderButton
+                ariaLabel="Abrir carrito"
+                onClick={() => {
+                  handleClose();
+                  navigate('/Cart');
+                }}
+              >
+                <span className="text-lg">
+                  <AiOutlineShoppingCart />
+                </span>
+              </HeaderButton>
+            </div>
+
+            <button
+              onClick={handleProfileClick}
+              className="flex w-full items-center gap-3 rounded-xl bg-(--surface-strong) p-3 text-(--txt-color) transition-colors hover:bg-(--surface-strong)/80"
+            >
+              <FaUser />
+              <span className="font-medium">
+                {auth?.isAuthenticated ? 'Mi Perfil' : 'Iniciar Sesión'}
               </span>
-            </HeaderButton>
-            <HeaderButton ariaLabel="Abrir Perfil" onClick={() => navigate('/auth/login')}>
-              <span className="text-lg">
-                <FaUser />
-              </span>
-            </HeaderButton>
+            </button>
+
+            {auth?.isAuthenticated && (
+              <button
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 rounded-xl bg-(--error-text)/10 p-3 text-(--error-text) transition-colors hover:bg-(--error-text)/20"
+              >
+                <FaRightFromBracket />
+                <span className="font-medium">Cerrar Sesión</span>
+              </button>
+            )}
           </div>
         </div>
       </aside>

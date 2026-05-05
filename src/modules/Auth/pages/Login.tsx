@@ -19,10 +19,8 @@ const Login = () => {
     const loggedInUser = mockLogin(email, password);
 
     if (loggedInUser) {
-      // guardar el usuario en el contexto de autenticación o en el estado global
-      Auth?.setUser(loggedInUser);
-        navigate('/profile'); //
-      alert(`Bienvenido, ${loggedInUser.name}!`);
+      Auth?.login(loggedInUser);
+      navigate('/profile');
     } else {
       setError('Credenciales incorrectas. Intenta de nuevo.');
     }
