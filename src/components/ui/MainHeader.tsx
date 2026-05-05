@@ -1,16 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, type MouseEventHandler } from 'react';
+import { useContext, useState, type MouseEventHandler } from 'react';
 import HeaderButton from './HeaderButton';
 import ThemeToggle from './ThemeToggle';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { FaUser } from 'react-icons/fa6';
+import { FaUser, FaRightFromBracket } from 'react-icons/fa6';
 import { FiMenu } from 'react-icons/fi';
 import { BrandName } from '../../helpers';
 import { useGlobalStore } from '../../state/zustand/global.store';
+import { AuthContext } from '../../state/contexts/Auth.Context';
 import SearchInput from './SearchInput';
 
 const MainHeader = ({ onToggleSidebar }: { onToggleSidebar?: MouseEventHandler }) => {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
   const query = useGlobalStore(state => state.searchTerm);
   const setQuery = useGlobalStore(state => state.setSearchTerm);
   const [localSearch, setLocalSearch] = useState(query);
@@ -18,6 +20,19 @@ const MainHeader = ({ onToggleSidebar }: { onToggleSidebar?: MouseEventHandler }
   const handleSearch = () => {
     setQuery(localSearch);
     navigate('/catalog');
+  };
+
+  const handleProfileClick = () => {
+    if (auth?.isAuthenticated) {
+      navigate('/profile');
+    } else {
+      navigate('/auth/login');
+    }
+  };
+
+  const handleLogout = () => {
+    auth?.logout();
+    navigate('/');
   };
 
   return (
@@ -50,11 +65,21 @@ const MainHeader = ({ onToggleSidebar }: { onToggleSidebar?: MouseEventHandler }
               <AiOutlineShoppingCart />
             </span>
           </HeaderButton>
-          <HeaderButton ariaLabel="Abrir Perfil" onClick={() => navigate('/auth/login')}>
+          <HeaderButton
+            ariaLabel={auth?.isAuthenticated ? 'Ver Perfil' : 'Iniciar Sesión'}
+            onClick={handleProfileClick}
+          >
             <span className="text-lg">
               <FaUser />
             </span>
           </HeaderButton>
+          {auth?.isAuthenticated && (
+            <HeaderButton ariaLabel="Cerrar Sesión" onClick={handleLogout}>
+              <span className="text-lg text-(--error-text)">
+                <FaRightFromBracket />
+              </span>
+            </HeaderButton>
+          )}
         </div>
 
         {/* Burger for mobile */}

@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiBook, FiShield, FiTruck } from 'react-icons/fi';
-import { books } from '../../../services/books-data';
 
 const LandingPage = () => {
-  const featuredBooks = books.slice(0, 4);
-  const formatPrice = (value: number) => value.toLocaleString('es-CO');
-
   return (
     <div className="flex flex-col gap-16 py-8">
       {/* Hero Section */}
@@ -83,54 +79,6 @@ const LandingPage = () => {
             <p className="text-(--txt-secondary)">{feature.desc}</p>
           </div>
         ))}
-      </section>
-
-      {/* Recommended Section */}
-      <section className="flex flex-col gap-8">
-        <div className="flex items-end justify-between">
-          <div className="flex flex-col gap-2">
-            <h2 className="text-3xl font-black text-(--txt-color)">Recomendados para ti</h2>
-            <p className="text-(--txt-secondary)">Nuestra selección especial de esta semana</p>
-          </div>
-          <Link to="#" className="font-bold text-(--btn-color) underline-offset-4 hover:underline">
-            Ver todos
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredBooks.map(book => (
-            <div
-              key={book.id}
-              className="group flex flex-col gap-4 rounded-2xl border border-(--line) bg-(--panel) p-4 transition-all hover:shadow-xl"
-            >
-              <div className="relative aspect-3/4 overflow-hidden rounded-xl bg-(--surface-strong)">
-                <img
-                  src={book.imagesUrls[0]}
-                  alt={book.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute top-2 right-2 rounded-lg bg-(--panel)/80 px-2 py-1 text-sm font-bold text-(--txt-color) backdrop-blur-sm">
-                  ${formatPrice(book.finalPrice)}
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <h4 className="line-clamp-1 w-full font-bold text-(--txt-color)">{book.title}</h4>
-                <p className="text-sm text-(--txt-secondary)">
-                  {book.authors[0] ?? 'Autor desconocido'}
-                </p>
-              </div>
-              <button className="mt-2 w-full rounded-xl bg-(--btn-color) py-2 text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90">
-                Agregar al Carrito
-              </button>
-              <Link
-                to={`/book/${book.id}`}
-                className="mt-2 w-full rounded-xl bg-(--btn-color) py-2 text-center text-sm font-bold text-(--btn-text) transition-opacity hover:opacity-90"
-              >
-                Ver Libro
-              </Link>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* CTA Section */}

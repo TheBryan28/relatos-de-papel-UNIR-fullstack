@@ -19,10 +19,8 @@ const Login = () => {
     const loggedInUser = mockLogin(email, password);
 
     if (loggedInUser) {
-      // guardar el usuario en el contexto de autenticación o en el estado global
-      Auth?.setUser(loggedInUser);
-        navigate('/profile'); //
-      alert(`Bienvenido, ${loggedInUser.name}!`);
+      Auth?.login(loggedInUser);
+      navigate('/profile');
     } else {
       setError('Credenciales incorrectas. Intenta de nuevo.');
     }
@@ -79,7 +77,25 @@ const Login = () => {
           <Button type="submit" variant="primary" className="w-full cursor-pointer">
             Ingresar
           </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            className="w-full cursor-pointer"
+            onClick={() => navigate('/auth/register')}
+          >
+            Crear cuenta
+          </Button>
         </div>
+        <p className="text-center text-sm text-(--muted)">
+          ¿No tienes una cuenta?{' '}
+          <button
+            type="button"
+            onClick={() => navigate('/auth/register')}
+            className="font-bold text-(--btn-color) hover:underline cursor-pointer"
+          >
+            Regístrate ahora
+          </button>
+        </p>
       </form>
     </MainCard>
   );

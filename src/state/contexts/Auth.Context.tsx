@@ -1,9 +1,11 @@
-import { createContext, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
+import { createContext, useState, type ReactNode } from 'react';
 import type { User } from '../../types/User.interface';
 
 interface AuthContextType {
   user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
+  login: (user: User) => void;
+  logout: () => void;
+  isAuthenticated: boolean;
 }
 
 interface AuthProviderProps {
@@ -13,9 +15,28 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
+  const login = (userData: User) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  const isAuthenticated = !!user;
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export { AuthProvider, AuthContext };

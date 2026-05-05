@@ -1,10 +1,16 @@
-  import type { User } from '../../../types/User.interface';
- 
-  type Props = {
-   user: User;
- };
+import { useContext } from 'react';
+import { AuthContext } from '../../../state/contexts/Auth.Context.tsx';
+import { useNavigate } from 'react-router-dom';
+import type { User } from '../../../types/User.interface';
+
+type Props = {
+  user: User;
+};
 
  const Sidebar = ({ user }: Props) => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
   return (
     <aside className="flex flex-col gap-4 rounded-[14px] border border-(--line) bg-(--panel) p-4">
       <div className="flex items-center gap-3">
@@ -35,6 +41,15 @@
         </button>
         <button className="text-left p-2 rounded bg-(--bg-color)">
           Settings
+        </button>
+        <button
+          onClick={() => {
+            auth?.logout();
+            navigate('/');
+          }}
+          className="mt-4 text-left p-2 rounded text-(--error-text) hover:bg-(--error-text)/10 flex items-center gap-2 font-bold"
+        >
+          Cerrar Sesión
         </button>
       </nav>
     </aside>
