@@ -4,14 +4,21 @@ import { BookNotFound } from '../components/BookNotFound';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
 import Dropdown from '../../../components/ui/Dropdown';
+import { useCart } from '../../../state/contexts/Cart.Context';
 
 export default function BookDetail() {
+  const { addToCart } = useCart();
   const { id } = useParams();
   const bookId: number = Number(id);
   const book = getBookById(bookId);
   const navigate = useNavigate();
   const formatPrice = (value: number) => value.toLocaleString('es-CO');
   console.log('BookDetail - book:', book);
+  const handleAddToCart = () => {
+    if (book) {
+      addToCart({ id: book.id, title: book.title, price: book.finalPrice });
+      }
+      }
   return (
     <>
       {book == undefined ? (
@@ -46,7 +53,7 @@ export default function BookDetail() {
               <div className="flex flex-col gap-3">
                 <Button
                   className="rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800"
-                  onClick={() => navigate('/Cart')}
+                  onClick={() => handleAddToCart()}
                 >
                   ADICIONAR AL CARRITO
                 </Button>

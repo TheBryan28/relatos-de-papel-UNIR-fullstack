@@ -16,13 +16,8 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const itemInicial = [
-  {
-    id: 1,
-    title: "Cien años de soledad",
-    price: 45,
-    quantity: 1
-  }
-];
+
+] as CartItem[];
 
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
