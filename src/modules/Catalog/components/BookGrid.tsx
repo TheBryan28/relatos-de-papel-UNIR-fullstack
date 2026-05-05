@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../../../components/ui/Button';
 import type { Book } from '../../../types/Book.interface';
 
 interface BookGridProps {
@@ -20,35 +19,50 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
       {books.map(book => (
         <article
           key={book.id}
-          className="group flex h-full flex-col rounded-2xl border border-(--line) bg-(--panel) p-4 shadow-[0_12px_36px_rgba(var(--shadow-color),0.08)] transition hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(var(--shadow-color),0.12)]"
+          className="group flex h-full flex-col gap-4 rounded-3xl border border-(--line) bg-(--panel) p-4 transition-all hover:border-(--btn-color)/30 hover:shadow-2xl hover:shadow-(--shadow-color)/10"
         >
-          <div
-            onClick={() => navigate(`/book/${book.id}`)}
-            className="relative aspect-3/4 overflow-hidden rounded-xl bg-(--surface-strong)"
-          >
+          <div className="relative aspect-3/4 overflow-hidden rounded-2xl bg-(--surface-strong)">
             <img
               src={book.imagesUrls[0]}
               alt={book.title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="absolute top-3 right-3 rounded-full bg-(--panel)/90 px-3 py-1 text-xs font-bold text-(--txt-color)">
-              ${formatPrice(book.finalPrice)}
+            <div className="absolute top-3 left-3 rounded-lg bg-(--panel)/90 px-2 py-1 text-[10px] font-black tracking-widest text-(--txt-color) uppercase backdrop-blur-sm">
+              {book.stock > 0 ? 'En Stock' : 'Agotado'}
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+               <button
+                onClick={() => navigate(`/book/${book.id}`)}
+                className="rounded-xl bg-white px-6 py-3 font-bold text-black transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+               >
+                 Ver Detalle
+               </button>
             </div>
           </div>
-          <div className="mt-4 flex flex-1 flex-col gap-2">
-            <h3 className="line-clamp-2 text-base font-bold text-(--txt-color)">{book.title}</h3>
-            <p className="text-sm text-(--txt-secondary)">
-              {book.authors[0] ?? 'Autor desconocido'}
-            </p>
-            <p className="text-xs tracking-[0.2em] text-(--muted) uppercase">
+          
+          <div className="flex flex-col gap-1 flex-1">
+            <div className="flex items-start justify-between gap-2">
+              <h4 className="line-clamp-2 font-black text-(--txt-color) group-hover:text-(--btn-color) transition-colors">
+                {book.title}
+              </h4>
+              <span className="shrink-0 font-bold text-(--txt-color)">${formatPrice(book.finalPrice)}</span>
+            </div>
+            <p className="text-sm text-(--txt-secondary)">{book.authors[0] ?? 'Autor desconocido'}</p>
+            <p className="text-xs tracking-[0.2em] text-(--muted) uppercase mt-1">
               {book.category[0] ?? 'GENERAL'}
             </p>
-            <div className="mt-auto flex flex-col gap-2">
-              <Button className="w-full rounded-full py-2 text-xs font-bold">
-                ANADIR AL CARRITO
-              </Button>
-            </div>
           </div>
+
+          <button 
+            disabled={book.stock === 0}
+            className={`mt-auto w-full rounded-xl py-3 text-sm font-black transition-all cursor-pointer ${
+              book.stock > 0 
+                ? 'bg-(--btn-color) text-(--btn-text) hover:bg-(--btn-hover) active:scale-95' 
+                : 'bg-(--surface-strong) text-(--txt-secondary) cursor-not-allowed'
+            }`}
+          >
+            {book.stock > 0 ? 'AÑADIR AL CARRITO' : 'NOTIFICAR DISPONIBILIDAD'}
+          </button>
         </article>
       ))}
       {Array.from({ length: skeletonCount }).map((_, index) => (
