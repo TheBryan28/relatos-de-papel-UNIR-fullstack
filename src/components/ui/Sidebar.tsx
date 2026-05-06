@@ -85,7 +85,7 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
                 ariaLabel="Abrir carrito"
                 onClick={() => {
                   handleClose();
-                  navigate('/Cart');
+                  navigate('/cart');
                 }}
               >
                 <span className="text-lg">

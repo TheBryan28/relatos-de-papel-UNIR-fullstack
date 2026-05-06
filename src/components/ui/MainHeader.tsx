@@ -9,13 +9,17 @@ import { BrandName } from '../../helpers';
 import { useGlobalStore } from '../../state/zustand/global.store';
 import { AuthContext } from '../../state/contexts/Auth.Context';
 import SearchInput from './SearchInput';
+import { useCart } from '../../state/contexts/Cart.Context';
 
 const MainHeader = ({ onToggleSidebar }: { onToggleSidebar?: MouseEventHandler }) => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+  const { cart } = useCart();
   const query = useGlobalStore(state => state.searchTerm);
   const setQuery = useGlobalStore(state => state.setSearchTerm);
   const [localSearch, setLocalSearch] = useState(query);
+
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const handleSearch = () => {
     setQuery(localSearch);
@@ -60,11 +64,18 @@ const MainHeader = ({ onToggleSidebar }: { onToggleSidebar?: MouseEventHandler }
       <div className="flex items-center gap-3 text-(--txt-color)">
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/Cart')}>
-            <span className="text-lg">
-              <AiOutlineShoppingCart />
-            </span>
-          </HeaderButton>
+          <div className="relative">
+            <HeaderButton ariaLabel="Abrir carrito" onClick={() => navigate('/cart')}>
+              <span className="text-lg">
+                <AiOutlineShoppingCart />
+              </span>
+            </HeaderButton>
+            {cartCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-(--btn-color) px-1 text-[10px] font-black text-(--btn-text)">
+                {cartCount}
+              </span>
+            )}
+          </div>
           <HeaderButton
             ariaLabel={auth?.isAuthenticated ? 'Ver Perfil' : 'Iniciar Sesión'}
             onClick={handleProfileClick}

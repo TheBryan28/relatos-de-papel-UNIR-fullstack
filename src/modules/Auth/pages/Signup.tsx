@@ -18,8 +18,6 @@ const Signup = () => {
       alert('Las contrasenas no coinciden');
       return;
     }
-
-    console.log('USUARIO REGISTRADO', { name, email, password });
   };
 
   const fieldClass =

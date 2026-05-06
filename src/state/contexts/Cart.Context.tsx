@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect, useContext, type ReactNode } from 'react';
+import { createContext, useState, useEffect, useContext, type ReactNode, useCallback } from 'react';
+import { AuthContext } from './Auth.Context';
 
 
-export interface Product { id: number; title: string; price: number; }
+export interface Product { id: number; title: string; price: number; author: string; imageUrl?: string; }
 export interface CartItem extends Product { quantity: number; }
 
 interface CartContextType {
@@ -21,7 +22,7 @@ const itemInicial = [
 
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-
+    const auth = useContext(AuthContext);
     const [cart, setCart] = useState<CartItem[]>(() => {
     const savedCart = localStorage.getItem('shopping-cart');
     
@@ -40,7 +41,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('shopping-cart', JSON.stringify(cart));
     }, [cart]);
 
-    const addToCart = (product: Product) => {
+    const addToCart = useCallback((product: Product) => {
+        if (!auth?.isAuthenticated) {
+            alert('Debes iniciar sesión para agregar productos al carrito');
+            return;
+        }
         setCart((prevCart) => {
             const existing = prevCart.find((item) => item.id === product.id);
             if (existing) {
@@ -50,7 +55,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             }
             return [...prevCart, { ...product, quantity: 1 }];
         });
-    };
+        alert(`Agregaste "${product.title}" al carrito`);
+    }, [auth]);
 
 
     const removeFromCart = (id: number) => {
@@ -70,6 +76,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const clearCart = () => {
         setCart([]);
+        localStorage.removeItem('shopping-cart');
     };
 
     const getTotal = () => {

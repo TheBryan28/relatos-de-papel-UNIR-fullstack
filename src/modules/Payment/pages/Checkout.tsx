@@ -3,29 +3,16 @@ import Button from '../../../components/ui/Button';
 import Card from '../../../components/ui/Card';
 import InputText from '../../../components/ui/InputText';
 import PaymentResume from '../components/PaymentResume';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCart, type CartItem } from '../../../state/contexts/Cart.Context';
 
 type PaymentMethod = 'card' | 'wallet';
 
-const orderItems = [
-  {
-    title: 'Cien años de soledad',
-    author: 'Gabriel García Márquez',
-    price: 99,
-    quantity: 1,
-    accent: 'from-amber-100 to-amber-200',
-  },
-  {
-    title: 'Aprende Python',
-    author: 'Xavier Reyes O.',
-    price: 128,
-    quantity: 1,
-    accent: 'from-sky-100 to-sky-200',
-  },
-];
-
 const Checkout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const singleItem: CartItem | null = location.state?.singleItem || null;
+  const { cart, getTotal } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card');
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
@@ -38,7 +25,13 @@ const Checkout = () => {
   const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
     try {
       event.preventDefault();
-      navigate('/payment/confirmed');
+      navigate('/payment/confirmed',
+        {
+          state: {
+              isSingleItem: !!singleItem,
+              totalAmount: singleItem ? (singleItem.price * singleItem.quantity + 5) : (getTotal() + 5)
+            }
+        });
     } catch (error) {
       console.error('Error al procesar el pago:', error);
       navigate('/payment/error');
@@ -206,10 +199,10 @@ const Checkout = () => {
         </Card>
 
         <div className="flex flex-col gap-6">
-          <PaymentResume items={orderItems} shipping={13} taxes={5} />
+          <PaymentResume items={singleItem ? [singleItem] : [...cart]} shipping={0} taxes={5} />
           <Card className="bg-(--panel)/90 p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-              <Button variant="outlined" className="w-full sm:w-auto">
+              <Button onClick={() => navigate('/cart')} variant="outlined" className="w-full sm:w-auto">
                 Volver al carrito
               </Button>
 

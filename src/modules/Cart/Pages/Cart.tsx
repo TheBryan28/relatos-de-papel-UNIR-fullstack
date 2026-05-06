@@ -35,7 +35,7 @@ const Cart = () => {
               {cart.length === 0 ? (
                 <Card className="bg-(--panel)/40 border-dashed border-(--line) p-12 text-center">
                   <p className="text-(--muted)">No hay artículos aquí todavía.</p>
-                  <Button variant="secondary" className="mt-4" onClick={() => navigate('/')}>
+                  <Button variant="secondary" className="mt-4" onClick={() => navigate('/catalog')}>
                     Ir a la tienda
                   </Button>
                 </Card>
@@ -43,9 +43,21 @@ const Cart = () => {
               
               cart.map((item) => (
                   <Card key={item.id} className="bg-(--panel)/70 p-4 flex items-center justify-between border-(--line) hover:border-(--btn-color)/30 transition-colors">
-                    <div className="space-y-1">
-                      <h3 className="font-semibold text-lg">{item.title}</h3>
-                      <p className="text-sm text-(--muted)">Precio: ${item.price}</p>
+                    <div>
+                      <div className="flex items-center gap-4">
+                        {item.imageUrl && (
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            className="h-20 w-16 object-cover rounded"
+                          />
+                        )}
+                        <div className="space-y-1">
+                          <h3 className="font-semibold text-lg">{item.title}</h3>
+                          <p className="text-sm text-(--muted)">Autor: {item.author}</p>
+                          <p className="text-sm text-(--muted)">Precio: ${item.price}</p>
+                        </div>
+                      </div>
                     </div>
 
                   <div className="flex items-center gap-4">
@@ -64,7 +76,7 @@ const Cart = () => {
                           +
                         </button>
                       </div>
-                    <p className="font-bold text-(--txt-color) min-w-[80px] text-right">
+                    <p className="font-bold text-(--txt-color) min-w-20 text-right">
                         ${(item.price * item.quantity)}
                       </p>
                     </div>
@@ -98,7 +110,7 @@ const Cart = () => {
                     variant="primary" 
                     className="w-full py-4 shadow-lg shadow-(--btn-color)/20" 
                     disabled={cart.length === 0} 
-                    onClick={() => navigate('/Checkout')}
+                    onClick={() => navigate('/checkout')}
                   >
                     Finalizar Compra
                   </Button>
