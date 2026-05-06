@@ -4,7 +4,7 @@ type Props = {
   books: Book[];
 };
 
-const lybrarySection = ({ books }: Props) => {
+const LybrarySection = ({ books }: Props) => {
   return (
     <div>
       <h2 className="mb-3 text-xl font-bold">BIBLIOTECA DIGITAL</h2>
@@ -32,4 +32,4 @@ const lybrarySection = ({ books }: Props) => {
   );
 };
 
-export default lybrarySection;
+export default LybrarySection;
