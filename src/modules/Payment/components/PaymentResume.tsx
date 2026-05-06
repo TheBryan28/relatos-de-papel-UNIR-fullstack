@@ -1,13 +1,7 @@
-type ResumeItem = {
-  title: string;
-  author: string;
-  price: number;
-  quantity: number;
-  accent: string;
-};
+import type { CartItem } from "../../../state/contexts/Cart.Context";
 
 interface PaymentResumeProps {
-  items: ResumeItem[];
+  items: CartItem[];
   shipping: number;
   taxes: number;
 }
@@ -34,11 +28,11 @@ const PaymentResume = ({ items, shipping, taxes }: PaymentResumeProps) => {
         <div className="space-y-4 rounded-3xl bg-(--bg-color)/70 p-4">
           {items.map(item => (
             <div key={`${item.title}-${item.author}`} className="flex items-start gap-3">
-              <div
-                className={`flex h-16 w-12 shrink-0 items-end justify-center rounded-xl border border-(--line) bg-linear-to-br ${item.accent} p-1 text-[0.65rem] font-black tracking-[0.2em] text-(--txt-color) uppercase shadow-sm`}
-              >
-                Libro
-              </div>
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                className="h-20 w-16 object-cover rounded"
+              />
 
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold text-(--txt-color)">{item.title}</p>
@@ -65,7 +59,7 @@ const PaymentResume = ({ items, shipping, taxes }: PaymentResumeProps) => {
           <div className="flex items-center justify-between">
             <span>Envío</span>
             <span className="font-medium text-(--txt-color)">
-              {currencyFormatter.format(shipping)}
+              Gratis
             </span>
           </div>
           <div className="flex items-center justify-between">

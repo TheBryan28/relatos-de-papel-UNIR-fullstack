@@ -13,12 +13,31 @@ export default function BookDetail() {
   const book = getBookById(bookId);
   const navigate = useNavigate();
   const formatPrice = (value: number) => value.toLocaleString('es-CO');
-  console.log('BookDetail - book:', book);
+
   const handleAddToCart = () => {
     if (book) {
-      addToCart({ id: book.id, title: book.title, price: book.finalPrice });
+        addToCart({
+          id: book.id,
+          title: book.title,
+          price: book.finalPrice,
+          author: book.authors.join(', ') ?? 'Autor desconocido',
+          imageUrl: book.imagesUrls[0]
+        });
       }
-      }
+    }
+  
+  const handleCheckout = () => {
+    if (book) {
+      navigate('/Checkout', { state: { singleItem: {
+        id: book.id,
+        title: book.title,
+        price: book.finalPrice,
+        author: book.authors.join(', ') ?? 'Autor desconocido',
+        imageUrl: book.imagesUrls[0],
+        quantity: 1
+      } } });
+    }
+  }
   return (
     <>
       {book == undefined ? (
@@ -60,7 +79,7 @@ export default function BookDetail() {
 
                 <Button
                   className="rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800"
-                  onClick={() => navigate('/Checkout')}
+                  onClick={() => handleCheckout()}
                 >
                   COMPRAR AHORA
                 </Button>

@@ -1,11 +1,25 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaCheckDouble } from 'react-icons/fa';
 import { FaBookBookmark } from 'react-icons/fa6';
 import Button from '../../../components/ui/Button';
+import { useCart } from '../../../state/contexts/Cart.Context';
 
 const PaymentConfirmed: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { clearCart } = useCart();
+
+  const { totalAmount, isSingleItem } = location.state || {};
+
+  useEffect(() => {
+    return () => {
+      if (!isSingleItem) {
+        clearCart();
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main className="min-h-[70vh] px-6 py-12 md:px-12" style={{ color: 'var(--txt-color)' }}>
@@ -50,9 +64,15 @@ const PaymentConfirmed: React.FC = () => {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>
+                Hora
+              </span>
+              <span className="font-semibold">{new Date().toLocaleTimeString()}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>
                 Monto total
               </span>
-              <span className="font-semibold">$120.000</span>
+              <span className="font-semibold">${(totalAmount || 0)?.toLocaleString('es-CO')}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>
@@ -74,7 +94,7 @@ const PaymentConfirmed: React.FC = () => {
             electrónico registrada.
           </p>
 
-          <Button onClick={() => navigate('/')} variant="primary">
+          <Button onClick={() => navigate('/catalog')} variant="primary">
             Ir a biblioteca
           </Button>
         </section>

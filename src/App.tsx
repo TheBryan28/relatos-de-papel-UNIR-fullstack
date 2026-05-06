@@ -1,5 +1,6 @@
 import { AuthProvider } from './state/contexts/Auth.Context';
 import { ThemeProvider } from './state/contexts/Theme.Context';
+import { CartProvider } from './state/contexts/Cart.Context';
 import { BrowserRouter } from 'react-router-dom';
 import MainRouter from './routers';
 
@@ -9,7 +10,9 @@ function App() {
       <BrowserRouter>
         <ThemeProvider>
           <AuthProvider>
-            <MainRouter />
+            <CartProvider>
+              <MainRouter />
+            </CartProvider>
           </AuthProvider>
         </ThemeProvider>
       </BrowserRouter>

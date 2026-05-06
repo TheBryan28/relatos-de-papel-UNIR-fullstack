@@ -20,7 +20,7 @@ const ProfilePage = () => {
 
       <main className="flex flex-col gap-6">
         <ProfileInfo user={user} />
-        <LibrarySection books={books} />
+        <LibrarySection books={books.slice(0, 6)} />
         <OrdersTable orders={orders} />
       </main>
     </div>
