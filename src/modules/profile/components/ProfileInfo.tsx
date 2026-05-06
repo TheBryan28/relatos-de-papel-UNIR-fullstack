@@ -11,6 +11,7 @@ const ProfileInfo = ({ user }: Props) => {
             <div className="grid grid-cols-2 gap-6 rounded-[14px] border border-(--line) bg-(--panel) p-6">
 
     <div className="flex flex-col gap-3">
+        <h2 className="mb-3 text-xl font-bold">INFORMACIÓN DE PERFIL</h2>
         <div>
         <p className="text-xs text-(--txt-secondary)">NOMBRE COMPLETO</p>
         <p className="text-lg font-semibold">{user.name}</p>
