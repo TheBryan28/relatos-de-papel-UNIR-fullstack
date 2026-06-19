@@ -7,6 +7,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useContext } from 'react';
 import { AuthContext } from '../../state/contexts/Auth.Context';
 import { FaUser, FaRightFromBracket } from 'react-icons/fa6';
+import useLogout from '../../hooks/useLogout';
 
 interface SidebarProps {
   menuItems?: MenuItem[];
@@ -17,6 +18,7 @@ interface SidebarProps {
 const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+  const { logout } = useLogout();
 
   const handleClose = () => {
     if (onClose) onClose();
@@ -35,6 +37,7 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
     handleClose();
     auth?.logout();
     navigate('/');
+    logout();
   };
 
   return (

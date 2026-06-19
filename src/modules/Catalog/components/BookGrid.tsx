@@ -22,8 +22,8 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
       id: book.id,
       title: book.title,
       price: book.finalPrice,
-      imageUrl: book.imagesUrls[0],
-      author: book.authors.join(', ') ?? 'Autor desconocido',
+      imageUrl: book.images[0],
+      author: book.author ?? 'Autor desconocido',
     });
   };
 
@@ -37,7 +37,7 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
         >
           <div className="relative aspect-3/4 overflow-hidden rounded-2xl bg-(--surface-strong)">
             <img
-              src={book.imagesUrls[0]}
+              src={book.images[0]}
               alt={book.title}
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
@@ -61,9 +61,9 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
               </h4>
               <span className="shrink-0 font-bold text-(--txt-color)">${formatPrice(book.finalPrice)}</span>
             </div>
-            <p className="text-sm text-(--txt-secondary)">{book.authors[0] ?? 'Autor desconocido'}</p>
+            <p className="text-sm text-(--txt-secondary)">{book.author ?? 'Autor desconocido'}</p>
             <p className="text-xs tracking-[0.2em] text-(--muted) uppercase mt-1">
-              {book.category[0] ?? 'GENERAL'}
+              {book.categories?.join(', ') ?? 'GENERAL'}
             </p>
           </div>
 

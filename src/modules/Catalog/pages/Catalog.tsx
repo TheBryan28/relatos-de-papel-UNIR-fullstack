@@ -1,17 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { books } from '../../../services/books-data';
-import type { Book } from '../../../types/Book.interface';
 import Button from '../../../components/ui/Button';
 import BookGrid from '../components/BookGrid';
 import CatalogFilters from '../components/CatalogFilters';
 import { useGlobalStore } from '../../../state/zustand/global.store';
+import useGetCatalog from '../../../hooks/useGetCatalog';
 
 const PAGE_SIZE = 20;
 
 const Catalog = () => {
   const query = useGlobalStore(state => state.searchTerm);
+  const [page, setPage] = useState(0);
+  const { books: fetchedBooks, fetchSupplies, loading, error } = useGetCatalog();
 
-  const priceCeiling = useMemo(() => Math.max(...books.map(book => book.finalPrice)), []);
+  useEffect(() => {
+    fetchSupplies({ page, pageSize: PAGE_SIZE });
+  }, [fetchSupplies, page]);
+
+  const books = useMemo(() => fetchedBooks || [], [fetchedBooks]);
+
+  const priceCeiling = useMemo(() => Math.max(...books.map(book => book.finalPrice)), [books]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('default');
   const [maxPrice, setMaxPrice] = useState(priceCeiling);
@@ -21,50 +28,7 @@ const Catalog = () => {
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const loadTimeoutRef = useRef<number | null>(null);
 
-  const categories = useMemo(() => Array.from(new Set(books.flatMap(book => book.category))), []);
-
-  const filteredBooks = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    const matchesCategory = (book: Book) =>
-      selectedCategories.length === 0 ||
-      book.category.some(category => selectedCategories.includes(category));
-    const matchesPrice = (book: Book) => book.finalPrice <= maxPrice;
-
-    const matchesQuery = (book: Book) => {
-      if (!normalizedQuery) {
-        return true;
-      }
-
-      return (
-        book.title.toLowerCase().includes(normalizedQuery) ||
-        book.authors.some(author => author.toLowerCase().includes(normalizedQuery)) ||
-        book.category.some(category => category.toLowerCase().includes(normalizedQuery))
-      );
-    };
-
-    const result = books.filter(
-      book => matchesCategory(book) && matchesQuery(book) && matchesPrice(book),
-    );
-
-    if (sortBy === 'price-asc') {
-      return [...result].sort((a, b) => a.finalPrice - b.finalPrice);
-    }
-
-    if (sortBy === 'price-desc') {
-      return [...result].sort((a, b) => b.finalPrice - a.finalPrice);
-    }
-
-    if (sortBy === 'title') {
-      return [...result].sort((a, b) => a.title.localeCompare(b.title));
-    }
-
-    return result;
-  }, [query, selectedCategories, sortBy, maxPrice]);
-
-  const visibleBooks = useMemo(
-    () => filteredBooks.slice(0, visibleCount),
-    [filteredBooks, visibleCount],
-  );
+  const categories = useMemo(() => Array.from(new Set(books.flatMap(book => book.categories))), [books]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -97,13 +61,15 @@ const Catalog = () => {
           return;
         }
 
-        if (isLoadingMore || visibleCount >= filteredBooks.length) {
+        if (isLoadingMore || visibleCount >= books.length) {
           return;
         }
 
         setIsLoadingMore(true);
         loadTimeoutRef.current = window.setTimeout(() => {
-          setVisibleCount(currentCount => Math.min(currentCount + PAGE_SIZE, filteredBooks.length));
+          setVisibleCount(currentCount => Math.min(currentCount + PAGE_SIZE, books.length));
+          console.log(`Cargando más libros... Visible count: ${visibleCount + PAGE_SIZE}`);
+          setPage(currentPage => currentPage + 1);
           setIsLoadingMore(false);
         }, 350);
       },
@@ -112,7 +78,7 @@ const Catalog = () => {
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [filteredBooks.length, isLoadingMore, visibleCount]);
+  }, [books.length, isLoadingMore, visibleCount]);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories(current =>
@@ -131,9 +97,9 @@ const Catalog = () => {
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap items-center gap-4 text-xs text-(--muted) sm:text-sm">
             <span className="tracking-[0.2em] uppercase">Mostrando</span>
-            <span className="font-semibold text-(--txt-color)">{visibleBooks.length}</span>
+            <span className="font-semibold text-(--txt-color)">{books.length}</span>
             <span>de</span>
-            <span className="font-semibold text-(--txt-color)">{filteredBooks.length}</span>
+            <span className="font-semibold text-(--txt-color)">{"TODO:: calcular total"}</span>
             <div className="ml-auto flex items-center gap-2 text-(--txt-secondary)">
               <span className="tracking-[0.2em] uppercase">Orden</span>
               <select
@@ -162,7 +128,17 @@ const Catalog = () => {
         />
 
         <section className="flex flex-col gap-6">
-          {filteredBooks.length === 0 ? (
+          {loading && (
+            <div className="rounded-3xl border border-(--line) bg-(--panel) p-8 text-center">
+              <p className="text-lg font-semibold text-(--txt-color)">Cargando libros...</p>
+            </div>
+           )}
+          {error && (
+            <div className="rounded-3xl border border-(--line) bg-(--panel) p-8 text-center">
+              <p className="text-lg font-semibold text-(--error-text)">Error al cargar libros.</p>
+            </div>
+          )}
+          {books.length === 0 ? (
             <div className="rounded-3xl border border-(--line) bg-(--panel) p-8 text-center">
               <p className="text-lg font-semibold text-(--txt-color)">
                 No encontramos resultados para tu busqueda.
@@ -173,8 +149,8 @@ const Catalog = () => {
             </div>
           ) : (
             <BookGrid
-              books={visibleBooks}
-              totalCount={filteredBooks.length}
+              books={books}
+              totalCount={books.length}
               isLoadingMore={isLoadingMore}
             />
           )}

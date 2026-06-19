@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../../state/contexts/Auth.Context.tsx';
-import { books } from '../../../services/books-data.ts';
 import { orders } from '../../../services/mocksOrders.ts';
 
 import Sidebar from '../components/Sidebar.tsx';
 import ProfileInfo from '../components/ProfileInfo.tsx';
-import LibrarySection from '../components/LibrarySection.tsx';
 import OrdersTable from '../components/OrdersTable.tsx';
 
 const ProfilePage = () => {
@@ -20,7 +18,9 @@ const ProfilePage = () => {
 
       <main className="flex flex-col gap-6">
         <ProfileInfo user={user} />
-        <LibrarySection books={books.slice(0, 6)} />
+        {
+          // <LibrarySection books={books.slice(0, 6)} />
+        }
         <OrdersTable orders={orders.slice(0, 5)} />
       </main>
     </div>

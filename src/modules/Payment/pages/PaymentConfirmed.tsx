@@ -10,7 +10,7 @@ const PaymentConfirmed: React.FC = () => {
   const location = useLocation();
   const { clearCart } = useCart();
 
-  const { totalAmount, isSingleItem } = location.state || {};
+  const { totalAmount, isSingleItem, orderId } = location.state || {};
 
   useEffect(() => {
     return () => {
@@ -54,7 +54,7 @@ const PaymentConfirmed: React.FC = () => {
               <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>
                 No. Referencia
               </span>
-              <span className="font-semibold">#RP-12345</span>
+              <span className="font-semibold">#RP-{orderId}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>

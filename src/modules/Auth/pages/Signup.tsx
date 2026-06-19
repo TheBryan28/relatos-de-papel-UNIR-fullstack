@@ -1,8 +1,9 @@
-import { useState, type SubmitEvent } from 'react';
+import { useEffect, useState, type SubmitEvent } from 'react';
 import Button from '../../../components/ui/Button';
 import InputText from '../../../components/ui/InputText';
 import MainCard from '../../../components/ui/MainCard';
 import { useNavigate } from 'react-router-dom';
+import useSignup from '../../../hooks/useSignup';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { signup, error, user } = useSignup();
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +20,14 @@ const Signup = () => {
       alert('Las contrasenas no coinciden');
       return;
     }
+    signup(name, email, password);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/auth/login');
+    }
+  }, [user, navigate]);
 
   const fieldClass =
     'mt-2 w-full rounded-2xl border border-(--input-border) bg-(--input-bg) px-4 py-3 text-[15px] text-(--txt-color) outline-none transition placeholder:text-(--placeholder) focus:border-(--btn-color) focus:bg-(--panel)';
@@ -36,6 +45,7 @@ const Signup = () => {
           El formulario usa el mismo sistema monocromatico que las tarjetas y los botones para
           mantener una experiencia consistente.
         </p>
+        {error && <p className="text-sm text-(--error-text)">{error}</p>}
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
