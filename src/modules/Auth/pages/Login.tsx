@@ -1,30 +1,28 @@
-import { useContext, useState, type SubmitEvent } from 'react';
+import { useContext, useEffect, useState, type SubmitEvent } from 'react';
 import Button from '../../../components/ui/Button';
 import InputText from '../../../components/ui/InputText';
 import MainCard from '../../../components/ui/MainCard';
-import { mockLogin } from '../../../services/mocks';
 import { AuthContext } from '../../../state/contexts/Auth.Context';
-import { PiWarningCircleLight } from 'react-icons/pi';
-import { useNavigate } from 'react-router-dom'; //C
+import { useNavigate } from 'react-router-dom';
+import useLogin from '../../../hooks/useLogin';
 const Login = () => {
-  const navigate = useNavigate();//C
+  const navigate = useNavigate();
   const Auth = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const { login, user, error, loading } = useLogin();
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const loggedInUser = mockLogin(email, password);
-
-    if (loggedInUser) {
-      Auth?.login(loggedInUser);
-      navigate('/profile');
-    } else {
-      setError('Credenciales incorrectas. Intenta de nuevo.');
-    }
+    login(email, password);
   };
+
+  useEffect(() => {
+    if (user) {
+      Auth?.login(user);
+      navigate('/catalog');
+    }
+  }, [user, Auth, navigate]);
 
   const fieldClass =
     'mt-2 w-full rounded-2xl border border-(--input-border) bg-(--input-bg) px-4 py-3 text-[15px] text-(--txt-color) outline-none transition placeholder:text-(--placeholder) focus:border-(--btn-color) focus:bg-(--panel)';
@@ -39,14 +37,6 @@ const Login = () => {
           Ingresa tus credenciales para acceder a tu cuenta.
         </p>
         {error && <p className="text-sm text-(--error-text)">{error}</p>}
-        <code className="block rounded bg-(--btn-hover) p-4 text-sm text-(--txt-secondary)">
-          <PiWarningCircleLight className="inline h-4 w-4" style={{ color: 'var(--error-text)' }} />{' '}
-          Credenciales de prueba:
-          <br />
-          Email: juan@papel.com
-          <br />
-          Contraseña: 123456
-        </code>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
@@ -74,7 +64,7 @@ const Login = () => {
         </div>
 
         <div className="grid gap-3 pt-2 sm:grid-cols-2">
-          <Button type="submit" variant="primary" className="w-full cursor-pointer">
+          <Button type="submit" variant="primary" className="w-full cursor-pointer" disabled={loading}>
             Ingresar
           </Button>
           <Button

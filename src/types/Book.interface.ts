@@ -36,27 +36,17 @@ export interface Book {
   title: string;
   isbn: string;
   description: string;
-  authors: string[];
-  publisher: string;
-  publishedAt: Date;
-  category: BookCategory[];
+  author: string;
+  categories: BookCategory[];
   format: BookFormat;
-  languages: Language[];
   price: number;
   discountPercent: number;
   finalPrice: number;
 
   stock: number;
   fileUrl?: string;
-  imagesUrls: string[];
+  images: string[];
 
-  // Métricas
-  pageCount?: number;
   averageRating: number;
   reviewCount: number;
-
-  // Auditoría
-  createdAt: Date;
-  updatedAt: Date;
-  isActive: boolean;                // soft delete
 }

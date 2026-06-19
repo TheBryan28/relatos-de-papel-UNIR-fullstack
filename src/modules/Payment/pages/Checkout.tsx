@@ -1,10 +1,11 @@
-import { useState, type MouseEvent } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import Button from '../../../components/ui/Button';
 import Card from '../../../components/ui/Card';
 import InputText from '../../../components/ui/InputText';
 import PaymentResume from '../components/PaymentResume';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart, type CartItem } from '../../../state/contexts/Cart.Context';
+import useMakePayment from '../../../hooks/useMakePayment';
 
 type PaymentMethod = 'card' | 'wallet';
 
@@ -21,22 +22,39 @@ const Checkout = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
+  const [paymentRequested, setPaymentRequested] = useState(false);
+
+  const { makePayment, loading, error, order } = useMakePayment();
 
   const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
     try {
       event.preventDefault();
-      navigate('/payment/confirmed',
-        {
-          state: {
-              isSingleItem: !!singleItem,
-              totalAmount: singleItem ? (singleItem.price * singleItem.quantity + 5) : (getTotal() + 5)
-            }
-        });
+      makePayment(singleItem ? [singleItem] : [...cart]);
+      setPaymentRequested(true);
     } catch (error) {
       console.error('Error al procesar el pago:', error);
       navigate('/payment/error');
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      console.error('Error al procesar el pago:', error);
+      navigate('/payment/error');
+      return;
+    }
+    if (paymentRequested && order?.id) {
+      navigate('/payment/confirmed',
+        {
+          state: {
+              isSingleItem: !!singleItem,
+              totalAmount: singleItem ? (singleItem.price * singleItem.quantity + 5) : (getTotal() + 5),
+              orderId: order.id
+            }
+        });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, navigate, paymentRequested, order]);
 
   const sectionTitleClass = 'text-2xl font-black tracking-[-0.04em] text-(--txt-color) sm:text-3xl';
   const helperClass = 'text-sm uppercase tracking-[0.22em] text-(--muted)';
@@ -206,7 +224,7 @@ const Checkout = () => {
                 Volver al carrito
               </Button>
 
-              <Button onClick={handleSubmit} variant="primary" className="w-full sm:w-auto">
+              <Button onClick={handleSubmit} variant="primary" className="w-full sm:w-auto" disabled={loading}>
                 Confirmar pago
               </Button>
             </div>
