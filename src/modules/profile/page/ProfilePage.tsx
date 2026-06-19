@@ -5,6 +5,7 @@ import { orders } from '../../../services/mocksOrders.ts';
 import Sidebar from '../components/Sidebar.tsx';
 import ProfileInfo from '../components/ProfileInfo.tsx';
 import OrdersTable from '../components/OrdersTable.tsx';
+import SupportChat from '../components/SupportChat.tsx';
 
 const ProfilePage = () => {
   const auth = useContext(AuthContext);
@@ -23,6 +24,7 @@ const ProfilePage = () => {
         }
         <OrdersTable orders={orders.slice(0, 5)} />
       </main>
+      <SupportChat />
     </div>
   );
 };
