@@ -96,11 +96,12 @@ const Signup = () => {
         </div>
 
         <div className="grid gap-3 pt-2 sm:grid-cols-2">
-          <Button type="submit" variant="primary" className="w-full cursor-pointer">
+          <Button type="submit" id="signup-submit" variant="primary" className="w-full cursor-pointer">
             Registrarse
           </Button>
           <Button
             type="button"
+            id="signup-login"
             variant="secondary"
             className="w-full cursor-pointer"
             onClick={() => navigate('/auth/login')}

@@ -23,11 +23,11 @@ const NotFound = () => {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button onClick={() => navigate('/')} className="w-full sm:w-auto">
+              <Button id="not-found-home" onClick={() => navigate('/')} className="w-full sm:w-auto">
                 <FiHome className="text-lg" />
                 Ir al inicio
               </Button>
-              <Button onClick={() => navigate(-1)} variant="outlined" className="w-full sm:w-auto">
+              <Button id="not-found-back" onClick={() => navigate(-1)} variant="outlined" className="w-full sm:w-auto">
                 <FiArrowLeft className="text-lg" />
                 Volver atras
               </Button>

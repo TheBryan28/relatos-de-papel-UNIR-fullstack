@@ -68,6 +68,7 @@ const PaymentError: React.FC = () => {
 
           <div className="mb-6 flex flex-col gap-4 sm:flex-row">
             <Button
+              id="payment-error-choose-payment-method"
               onClick={() => navigate('/checkout')}
               className="w-full rounded-md px-6 py-3 sm:w-auto"
               style={{ backgroundColor: 'var(--btn-color)', color: 'var(--btn-text)' }}
@@ -76,6 +77,7 @@ const PaymentError: React.FC = () => {
             </Button>
 
             <Button
+              id="payment-error-go-to-cart"
               onClick={() => navigate('/cart')}
               className="w-full rounded-md border px-6 py-3 sm:w-auto"
               style={{

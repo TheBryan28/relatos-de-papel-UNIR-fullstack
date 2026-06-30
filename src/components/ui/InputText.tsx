@@ -36,6 +36,7 @@ const InputText: FC<InputTextProps> = ({
       <input
         type={type}
         id={id}
+        data-testid={id}
         value={value}
         onChange={e => onChange(e.target.value)}
         onKeyDown={onKeyDown}

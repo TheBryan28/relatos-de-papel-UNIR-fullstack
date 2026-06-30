@@ -37,13 +37,13 @@ const SearchInput = ({ searchTerm, setSearchTerm, goBack, handleSearch }: Search
           <IoArrowBackOutline size={24} />
         </button>
       )}
-      <label htmlFor="search" className="text-heading sr-only mb-2.5 block text-sm font-medium">
+      <label htmlFor="global-search" className="text-heading sr-only mb-2.5 block text-sm font-medium">
         Buscar
       </label>
       <div className="relative w-full">
         <InputText
           type="search"
-          id="search"
+          id="global-search"
           value={searchTerm}
           onChange={setSearchTerm}
           onKeyDown={handleEnter}

@@ -4,6 +4,7 @@ type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
+  id: string;
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -15,6 +16,7 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const Button = ({
+  id,
   className = '',
   variant = 'primary',
   type = 'button',
@@ -25,6 +27,8 @@ const Button = ({
       type={type}
       className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-3 text-sm tracking-[0.08em] uppercase transition duration-200 focus-visible:ring-2 focus-visible:ring-(--txt-color) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-color) focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${variantClasses[variant]} ${className}`}
       {...props}
+      id={id}
+      data-testid={id}
     />
   );
 };

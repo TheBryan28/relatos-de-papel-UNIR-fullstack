@@ -13,8 +13,8 @@ const Catalog = () => {
   const { books: fetchedBooks, fetchSupplies, loading, error } = useGetCatalog();
 
   useEffect(() => {
-    fetchSupplies({ page, pageSize: PAGE_SIZE });
-  }, [fetchSupplies, page]);
+    fetchSupplies({ page, pageSize: PAGE_SIZE, title: query });
+  }, [fetchSupplies, page, query]);
 
   const books = useMemo(() => fetchedBooks || [], [fetchedBooks]);
 
@@ -162,6 +162,7 @@ const Catalog = () => {
       {showBackToTop && (
         <Button
           variant="primary"
+          id="back-to-top-button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed right-6 bottom-6 rounded-full px-4 py-3 text-xs font-bold"
         >

@@ -35,14 +35,14 @@ const Cart = () => {
               {cart.length === 0 ? (
                 <Card className="bg-(--panel)/40 border-dashed border-(--line) p-12 text-center">
                   <p className="text-(--muted)">No hay artículos aquí todavía.</p>
-                  <Button variant="secondary" className="mt-4" onClick={() => navigate('/catalog')}>
+                  <Button variant="secondary" id="cart-go-to-store" className="mt-4" onClick={() => navigate('/catalog')}>
                     Ir a la tienda
                   </Button>
                 </Card>
               ) : (
               
               cart.map((item) => (
-                  <Card key={item.id} className="bg-(--panel)/70 p-4 flex items-center justify-between border-(--line) hover:border-(--btn-color)/30 transition-colors">
+                  <Card id={`cart-item-${item.id}`} key={item.id} className="bg-(--panel)/70 p-4 flex items-center justify-between border-(--line) hover:border-(--btn-color)/30 transition-colors">
                     <div>
                       <div className="flex items-center gap-4">
                         {item.imageUrl && (
@@ -107,6 +107,7 @@ const Cart = () => {
 
                 <div className="grid gap-3 pt-2">
                   <Button 
+                    id="cart-checkout"
                     variant="primary" 
                     className="w-full py-4 shadow-lg shadow-(--btn-color)/20" 
                     disabled={cart.length === 0} 
@@ -116,6 +117,7 @@ const Cart = () => {
                   </Button>
 
                   <button 
+                    id="cart-clear"
                     onClick={clearCart}
                     disabled={cart.length === 0}
                     className="text-sm text-(--muted) hover:text-red-400 transition-colors disabled:opacity-50"

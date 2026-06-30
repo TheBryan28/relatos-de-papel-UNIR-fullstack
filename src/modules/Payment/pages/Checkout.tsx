@@ -220,11 +220,11 @@ const Checkout = () => {
           <PaymentResume items={singleItem ? [singleItem] : [...cart]} shipping={0} taxes={5} />
           <Card className="bg-(--panel)/90 p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-              <Button onClick={() => navigate('/cart')} variant="outlined" className="w-full sm:w-auto">
+              <Button id="checkout-go-to-cart" onClick={() => navigate('/cart')} variant="outlined" className="w-full sm:w-auto">
                 Volver al carrito
               </Button>
 
-              <Button onClick={handleSubmit} variant="primary" className="w-full sm:w-auto" disabled={loading}>
+              <Button id="checkout-confirm-payment" onClick={handleSubmit} variant="primary" className="w-full sm:w-auto" disabled={loading}>
                 Confirmar pago
               </Button>
             </div>
