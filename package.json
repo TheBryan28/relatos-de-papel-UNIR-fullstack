@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md,html}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md,html}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md,html}\"",
+    "cy:open":   "cypress open",
+    "cy:run":    "cypress run",
+    "cy:run:e2e": "cypress run --spec 'cypress/e2e/**/*.cy.ts'"
   },
   "dependencies": {
     "@stomp/stompjs": "^7.3.0",
@@ -27,10 +30,12 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "cypress": "^15.18.0",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
+    "mysql2": "^3.22.5",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.2.4",

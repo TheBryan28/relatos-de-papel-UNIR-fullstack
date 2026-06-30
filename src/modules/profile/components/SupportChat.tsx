@@ -132,7 +132,7 @@ export default function SupportChat() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="flex h-[450px] w-[350px] flex-col rounded-[16px] border border-(--line) bg-(--panel) shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-bottom-4">
+        <div className="flex h-[450px] w-[350px] flex-col rounded-2xl border border-(--line) bg-(--panel) shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-bottom-4">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-(--line) p-4">
             <div className="flex items-center gap-2">
@@ -167,13 +167,13 @@ export default function SupportChat() {
                   className={`flex ${isClient ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-[12px] px-3.5 py-2 text-sm shadow-sm ${
+                    className={`max-w-[80%] rounded-xl px-3.5 py-2 text-sm shadow-sm ${
                       isClient
                         ? 'bg-(--btn-color) text-(--btn-text) rounded-tr-none'
                         : 'bg-(--surface-strong) text-(--txt-color) rounded-tl-none'
                     }`}
                   >
-                    <p className="leading-relaxed break-words">{msg.text}</p>
+                    <p className="leading-relaxed wrap-break-word">{msg.text}</p>
                     <span className={`block text-[9px] mt-1 text-right ${isClient ? 'text-(--btn-text)/70' : 'text-(--txt-secondary)'}`}>
                       {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>

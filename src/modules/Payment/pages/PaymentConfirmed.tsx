@@ -72,7 +72,7 @@ const PaymentConfirmed: React.FC = () => {
               <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>
                 Monto total
               </span>
-              <span className="font-semibold">${(totalAmount || 0)?.toLocaleString('es-CO')}</span>
+              <span data-testid="payment-confirmed-total" className="font-semibold">${(totalAmount || 0)?.toLocaleString('es-CO')}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm" style={{ color: 'var(--txt-secondary)' }}>
@@ -94,7 +94,7 @@ const PaymentConfirmed: React.FC = () => {
             electrónico registrada.
           </p>
 
-          <Button onClick={() => navigate('/catalog')} variant="primary">
+          <Button id="payment-confirmed-go-to-store" onClick={() => navigate('/catalog')} variant="primary">
             Ir a biblioteca
           </Button>
         </section>

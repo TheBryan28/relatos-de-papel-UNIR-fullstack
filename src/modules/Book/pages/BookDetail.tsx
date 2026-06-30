@@ -78,6 +78,7 @@ export default function BookDetail() {
               <div className="flex flex-col gap-3">
                 <Button
                   className="rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800"
+                  id="add-to-cart-button"
                   onClick={() => handleAddToCart()}
                 >
                   ADICIONAR AL CARRITO
@@ -85,6 +86,7 @@ export default function BookDetail() {
 
                 <Button
                   className="rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800"
+                  id="buy-now-button"
                   onClick={() => handleCheckout()}
                 >
                   COMPRAR AHORA

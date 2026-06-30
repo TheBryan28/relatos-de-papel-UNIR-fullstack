@@ -33,6 +33,7 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
         <article
           key={book.id}
           onClick={() => navigate(`/book/${book.id}`)}
+          data-testid={`book-card-${book.id}`}
           className="group flex h-full flex-col gap-4 rounded-3xl border border-(--line) bg-(--panel) p-4 transition-all hover:border-(--btn-color)/30 hover:shadow-2xl hover:shadow-(--shadow-color)/10"
         >
           <div className="relative aspect-3/4 overflow-hidden rounded-2xl bg-(--surface-strong)">
@@ -70,6 +71,7 @@ const BookGrid = ({ books, totalCount, isLoadingMore }: BookGridProps) => {
           <button 
             disabled={book.stock === 0}
             onClick={(e) => handleAddToCart(e, book)}
+            data-testid={`add-to-cart-${book.id}`}
             className={`mt-auto w-full rounded-xl py-3 text-sm font-black transition-all cursor-pointer ${
               book.stock > 0 
                 ? 'bg-(--btn-color) text-(--btn-text) hover:bg-(--btn-hover) active:scale-95' 

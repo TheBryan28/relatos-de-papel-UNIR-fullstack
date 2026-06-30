@@ -36,7 +36,7 @@ const Login = () => {
         <p className="text-base leading-7 text-(--muted)">
           Ingresa tus credenciales para acceder a tu cuenta.
         </p>
-        {error && <p className="text-sm text-(--error-text)">{error}</p>}
+        {error && <p data-testid="error" className="text-sm text-(--error-text)">{error}</p>}
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
@@ -64,11 +64,12 @@ const Login = () => {
         </div>
 
         <div className="grid gap-3 pt-2 sm:grid-cols-2">
-          <Button type="submit" variant="primary" className="w-full cursor-pointer" disabled={loading}>
+          <Button type="submit" id="login-submit" variant="primary" className="w-full cursor-pointer" disabled={loading}>
             Ingresar
           </Button>
           <Button
             type="button"
+            id="login-register"
             variant="secondary"
             className="w-full cursor-pointer"
             onClick={() => navigate('/auth/register')}

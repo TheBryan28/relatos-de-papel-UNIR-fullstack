@@ -1,0 +1,11 @@
+{
+  "validUser": {
+    "email": "admin@relatosdepapel.com",
+    "password": "Test1234!",
+    "name": "Admin User"
+  },
+  "invalidUser": {
+    "email": "noexiste@test.com",
+    "password": "wrong"
+  }
+}
