@@ -86,6 +86,7 @@ const Sidebar = ({ menuItems = [], open, onClose }: SidebarProps) => {
               <ThemeToggle />
               <HeaderButton
                 ariaLabel="Abrir carrito"
+                id='sidebar-cart-button'
                 onClick={() => {
                   handleClose();
                   navigate('/cart');

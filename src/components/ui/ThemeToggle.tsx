@@ -10,7 +10,7 @@ const ThemeToggle = () => {
     theme.toggleTheme();
   };
   return (
-    <HeaderButton onClick={handleClick} ariaLabel="change theme">
+    <HeaderButton id="theme-toggle-button" onClick={handleClick} ariaLabel="change theme">
       <span className="text-lg">
         {theme.theme === 'light' ? <FaRegLightbulb /> : <FaLightbulb />}
       </span>
